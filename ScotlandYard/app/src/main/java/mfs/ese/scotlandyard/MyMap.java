@@ -1,0 +1,204 @@
+package mfs.ese.scotlandyard;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import android.app.Activity;
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+
+
+
+
+public class MyMap extends Activity implements HttpResp{
+
+	public HttpResp resp = this;
+	public Activity act = this;
+	
+	boolean isUpdating=false;
+	private List<SYGroup> groups = new ArrayList<SYGroup>();
+	
+	class SYGroup{
+		public int groupNumber;
+		public LatLng position;
+		public String comment;
+		public String timestamp;
+		public String direction;
+		public String transportation;
+		public Marker marker;
+		public boolean isXGroup;
+		
+		
+		public SYGroup(String[] groupVals, boolean misterx){
+			groupNumber = Integer.parseInt(groupVals[0]);
+			position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
+			isXGroup = misterx;
+			direction = groupVals[3];
+			transportation = groupVals[4];
+			comment = groupVals[5];
+			timestamp = groupVals[6].substring(11,16); //Nur Uhrzeit
+		}	
+	}
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);    
+        
+        
+        if (!isUpdating) {
+	      //Get current position
+		    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		    Criteria criteria = new Criteria();
+		    String provider = locationManager.getBestProvider(criteria, false);
+		    Location location = locationManager.getLastKnownLocation(provider);
+		    
+		    if (location != null){
+		    	GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		        CameraPosition cameraPosition = new CameraPosition.Builder().target(
+		                new LatLng(location.getLatitude(), location.getLongitude())).zoom(12).build();
+		 
+		        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+		    }
+
+        
+        	UpdateMap();
+        	timer.schedule(new UpdateTask(), Vars.UPDATING_INTERVAL);
+		}
+		isUpdating = true;
+        
+    }
+    
+    Timer timer;
+
+    public void UpdateMap() {
+        timer = new Timer();
+        timer.schedule(new UpdateTask(), 0, Vars.UPDATING_INTERVAL);
+	}
+
+    class UpdateTask extends TimerTask {
+        public void run() {
+        	Log.d("std", "Positionupdate");
+
+			// Get positions
+			new Http("http://www.benjaminh.de/sy/ajax.php", resp)
+					.execute("AJAX=hgroups");
+			
+			new Http("http://www.benjaminh.de/sy/ajax.php", resp)
+			.execute("AJAX=xgroups");
+        }
+    }
+
+	@Override
+	public void response(String url, String param, String resp) {
+		boolean misterx=false;
+		if (param.equals("AJAX=xgroups")) misterx = true;
+		
+		String[] sGroups = resp.split("<br/>");
+		for (String group : sGroups) {
+			String[] groupVals = group.split(" \r\n");
+			updateGroup(groupVals, misterx);
+		}
+			
+			
+		if (act.hasWindowFocus()){
+		Handler handler = new Handler(Looper.getMainLooper());
+    	handler.post(new Runnable(){ 
+    		
+			@Override
+			public void run() {
+				try{
+				GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+            	
+            	for (SYGroup gp : groups){
+            		
+    	        		if (gp.marker != null){
+    	        			Log.d("std", "Updating existing marker");
+    	        			gp.marker.setPosition(gp.position);
+    	        			if (gp.isXGroup){
+    	        				//beep
+    	        			}
+    	        		}
+    	        		else{
+    	        			Log.d("std", "Creating new marker");
+    	        			float color = BitmapDescriptorFactory.HUE_AZURE;
+    	        			if (gp.isXGroup) color = BitmapDescriptorFactory.HUE_RED;
+    	        			if (gp.groupNumber<10){
+    	        				gp.marker = mMap.addMarker(new MarkerOptions()
+    	        				.position(gp.position)
+    	        				.flat(true) //necessary for rotation
+    	        				.icon(BitmapDescriptorFactory.defaultMarker(color))
+    	        				.title("Gruppe "+gp.groupNumber+" - "+gp.transportation+" - "+gp.direction)
+    	        				.snippet(gp.comment+" - "+gp.timestamp));
+    	        			}
+    	        			else{
+    	        				gp.marker = mMap.addMarker(new MarkerOptions()
+    	        				.position(gp.position)
+    	        				.flat(true) //necessary for rotation
+    	        				.icon(BitmapDescriptorFactory.defaultMarker(color))
+    	        				.title("Gruppe "+gp.groupNumber)
+    	        				.snippet(gp.timestamp));
+    	        			}
+    	        		}
+            		}
+            		
+            	}
+				catch(Exception e){
+        			e.printStackTrace();
+        			Log.d("std", e.getMessage());
+        		}
+				
+			}
+    	});
+		}
+	}
+	
+	public void updateGroup(String[] groupVals, boolean misterx) {
+		try {
+			boolean alreadyInList = false;
+
+			for (SYGroup gp : groups) {
+				if (gp.groupNumber == Integer.parseInt(groupVals[0])) {
+					alreadyInList = true;
+
+					gp.position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
+					gp.direction = groupVals[3];
+					gp.transportation = groupVals[4];
+					gp.comment = groupVals[5];
+					gp.timestamp = groupVals[6].substring(11,16); //Nur Uhrzeit
+					
+					Log.d("std", "Group " + groupVals[0] + " was updated.");
+				}
+				
+			}
+
+			if (!alreadyInList) {
+				groups.add(new SYGroup(groupVals, misterx));
+				Log.d("std", "Group " + groupVals[0] + " was added.");
+			}
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
