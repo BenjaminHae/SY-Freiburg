@@ -386,7 +386,7 @@ public class MainActivity extends FragmentActivity implements
     @Override
     public void onDisconnected() {
         mConnectionStatus.setText(R.string.disconnected);
-    }
+}
 
     /*
      * Called by Location Services if the attempt to

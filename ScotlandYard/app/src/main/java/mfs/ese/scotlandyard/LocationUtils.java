@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.example.android.location;
+package mfs.ese.scotlandyard;
 
 import android.content.Context;
 import android.location.Location;
 
-import com.example.android.location.R;
+import mfs.ese.scotlandyard.R;
 
 /**
  * Defines app-wide constants and utilities
@@ -28,14 +28,6 @@ public final class LocationUtils {
 
     // Debugging tag for the application
     public static final String APPTAG = "LocationSample";
-
-    // Name of shared preferences repository that stores persistent state
-    public static final String SHARED_PREFERENCES =
-            "com.example.android.location.SHARED_PREFERENCES";
-
-    // Key for storing the "updates requested" flag in shared preferences
-    public static final String KEY_UPDATES_REQUESTED =
-            "com.example.android.location.KEY_UPDATES_REQUESTED";
 
     /*
      * Define a request code to send to Google Play services
@@ -50,7 +42,7 @@ public final class LocationUtils {
     public static final int MILLISECONDS_PER_SECOND = 1000;
 
     // The update interval
-    public static final int UPDATE_INTERVAL_IN_SECONDS = 5;
+    public static final int UPDATE_INTERVAL_IN_SECONDS = 10;
 
     // A fast interval ceiling
     public static final int FAST_CEILING_IN_SECONDS = 1;

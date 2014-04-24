@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.example.android.location;
+package mfs.ese.scotlandyard;
 
 import com.google.android.gms.common.ConnectionResult;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.example.android.location.R;
+import mfs.ese.scotlandyard.R;
 
 /**
  * Map error codes to error messages.

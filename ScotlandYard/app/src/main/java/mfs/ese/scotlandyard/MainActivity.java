@@ -18,6 +18,7 @@ import android.widget.Spinner;
 public class MainActivity extends Activity implements HttpResp {
 
 	private boolean isTracking=false;
+    static public LocationByPlay mLocationByPlay;
 	public HttpResp resp = this;
 	
 	@Override
@@ -34,8 +35,8 @@ public class MainActivity extends Activity implements HttpResp {
 		// Apply the adapter to the spinner
 		spinner.setAdapter(adapter);
 			
-		
-		
+		mLocationByPlay = new LocationByPlay(this);
+
 
 		final Button button = (Button) findViewById(R.id.button1);
 		button.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +63,10 @@ public class MainActivity extends Activity implements HttpResp {
 					showMap();
 				}
 				else if (gpid>=0 && gpid > 600){
-					MsgBox("Fehler", "Mister X Gruppen müssen manuell ihre Position senden!");
+					MsgBox("Fehler", "Mister X Gruppen mÃ¼ssen manuell ihre Position senden!");
 				}
 				else{
-					MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+					MsgBox("Fehler", "Bitte eine gÃ¼ltige Gruppennummer eingeben!");
 	        		((EditText)findViewById(R.id.groupIdText)).requestFocus();
 				}
 
@@ -112,11 +113,11 @@ public class MainActivity extends Activity implements HttpResp {
 		        	String comment = "comment="+((EditText) findViewById(R.id.commentText)).getText().toString();
 		        	
 		        	if (gpid < 0){
-		        		MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+		        		MsgBox("Fehler", "Bitte eine gÃ¼ltige Gruppennummer eingeben!");
 		        		((EditText)findViewById(R.id.groupIdText)).requestFocus();
 		        	}
-		        	else if (transportation.equals("transportation=[Bitte wählen]")){
-		        		MsgBox("Fehler", "Bitte eine Fortbewegungsmittel auswählen!");
+		        	else if (transportation.equals("transportation=[Bitte wÃ¤hlen]")){
+		        		MsgBox("Fehler", "Bitte eine Fortbewegungsmittel auswÃ¤hlen!");
 		        	}
 		        	else{
 			        	//Send position
@@ -137,6 +138,7 @@ public class MainActivity extends Activity implements HttpResp {
 	}
 
 	public void startTracking() {
+        mLocationByPlay.StartTracking();
 		if (!isTracking) {
 			Intent intent = new Intent(this, Tracking.class);
 			startService(intent);
@@ -155,10 +157,10 @@ public class MainActivity extends Activity implements HttpResp {
 	@Override
 	public void response(String url, String param, String resp) {
 		if (resp.equals("OK")){
-			MsgBox("OK", "Position erfolgreich übertragen!");
+			MsgBox("OK", "Position erfolgreich Ã¼bertragen!");
 		}
 		else{
-			MsgBox("Fehler", "Es gab ein Problem bei der Übertragung: "+resp);
+			MsgBox("Fehler", "Es gab ein Problem bei der Ãœbertragung: "+resp);
 		}
 		
 	}
@@ -171,4 +173,12 @@ public class MainActivity extends Activity implements HttpResp {
 		builder.show();
 	}
 
+    /*
+         * Called when the Activity is no longer visible at all.
+         * Stop updates and disconnect.
+         */
+    @Override
+    public void onStop() {
+        mLocationByPlay.EndTracking();
+    }
 }

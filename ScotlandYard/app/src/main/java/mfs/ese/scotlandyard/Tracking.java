@@ -13,10 +13,12 @@ import android.location.LocationManager;
 import android.util.Log;
 
 public class Tracking extends IntentService implements HttpResp{
+    LocationByPlay mLocationByPlay;
 
 	public Tracking() {
 		super("TrackingService");
 		// TODO Auto-generated constructor stub
+        mLocationByPlay = MainActivity.mLocationByPlay;
 	}
 	
 	
@@ -40,20 +42,14 @@ public class Tracking extends IntentService implements HttpResp{
         	Log.d("std", "Tracking");
         	
         	//Get current position
-    	    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    	    Criteria criteria = new Criteria();
-    	    String provider = locationManager.getBestProvider(criteria, false);
-    	    Location location = locationManager.getLastKnownLocation(provider);
+    	    Location location = mLocationByPlay.getLocation();
     	    
     	    if (location != null){
 	    	    //Send position
 	        	Http con = new Http("http://www.benjaminh.de/sy/ins.php", resp);
 	        	con.setPost(true);
 	        	con.execute("group="+Vars.groupNumber,"position="+location.getLatitude()+","+location.getLongitude());
-	        	
     	    }
-    	    
-    	    
         }
     }
 
