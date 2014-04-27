@@ -26,9 +26,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-
-
-
 public class MyMap extends Activity implements HttpResp{
 
 	public HttpResp resp = this;
@@ -108,69 +105,74 @@ public class MyMap extends Activity implements HttpResp{
         }
     }
 
+    /// mrX gibt an, ob MrX, oder Verfolger gezeichnet werden TODO
+    private void DrawGroups(boolean mrX)
+    {
+        if (act.hasWindowFocus()){
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable(){
+
+                @Override
+                public void run() {
+                    try {
+                        GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+
+                        for (SYGroup gp : groups) {
+                            if (gp.marker != null) {
+                                Log.d("std", "Updating existing marker");
+                                gp.marker.setPosition(gp.position);
+                            } else {
+                                Log.d("std", "Creating new marker");
+                                float color = BitmapDescriptorFactory.HUE_AZURE;
+                                if (gp.isXGroup) color = BitmapDescriptorFactory.HUE_RED;
+                                if (gp.groupNumber < 10) {
+                                    gp.marker = mMap.addMarker(new MarkerOptions()
+                                            .position(gp.position)
+                                            .flat(true) //necessary for rotation
+                                            .icon(BitmapDescriptorFactory.defaultMarker(color))
+                                            .title("Gruppe " + gp.groupNumber + " - " + gp.transportation + " - " + gp.direction)
+                                            .snippet(gp.comment + " - " + gp.timestamp));
+                                } else {
+                                    gp.marker = mMap.addMarker(new MarkerOptions()
+                                            .position(gp.position)
+                                            .flat(true) //necessary for rotation
+                                            .icon(BitmapDescriptorFactory.defaultMarker(color))
+                                            .title("Gruppe " + gp.groupNumber)
+                                            .snippet(gp.timestamp));
+                                }
+                            }
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("std", e.getMessage());
+                    }
+
+                }
+            });
+        }
+    }
+
 	@Override
 	public void response(String url, String param, String resp) {
-		boolean misterx=false;
-		if (param.equals("AJAX=xgroups")) misterx = true;
-		
-		String[] sGroups = resp.split("<br/>");
-		for (String group : sGroups) {
-			String[] groupVals = group.split(" \r\n");
-			updateGroup(groupVals, misterx);
-		}
-			
-			
-		if (act.hasWindowFocus()){
-		Handler handler = new Handler(Looper.getMainLooper());
-    	handler.post(new Runnable(){ 
-    		
-			@Override
-			public void run() {
-				try{
-				GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-            	
-            	for (SYGroup gp : groups){
-            		
-    	        		if (gp.marker != null){
-    	        			Log.d("std", "Updating existing marker");
-    	        			gp.marker.setPosition(gp.position);
-    	        			if (gp.isXGroup){
-    	        				//beep
-    	        			}
-    	        		}
-    	        		else{
-    	        			Log.d("std", "Creating new marker");
-    	        			float color = BitmapDescriptorFactory.HUE_AZURE;
-    	        			if (gp.isXGroup) color = BitmapDescriptorFactory.HUE_RED;
-    	        			if (gp.groupNumber<10){
-    	        				gp.marker = mMap.addMarker(new MarkerOptions()
-    	        				.position(gp.position)
-    	        				.flat(true) //necessary for rotation
-    	        				.icon(BitmapDescriptorFactory.defaultMarker(color))
-    	        				.title("Gruppe "+gp.groupNumber+" - "+gp.transportation+" - "+gp.direction)
-    	        				.snippet(gp.comment+" - "+gp.timestamp));
-    	        			}
-    	        			else{
-    	        				gp.marker = mMap.addMarker(new MarkerOptions()
-    	        				.position(gp.position)
-    	        				.flat(true) //necessary for rotation
-    	        				.icon(BitmapDescriptorFactory.defaultMarker(color))
-    	        				.title("Gruppe "+gp.groupNumber)
-    	        				.snippet(gp.timestamp));
-    	        			}
-    	        		}
-            		}
-            		
-            	}
-				catch(Exception e){
-        			e.printStackTrace();
-        			Log.d("std", e.getMessage());
-        		}
-				
-			}
-    	});
-		}
-	}
+        if (param.equals("AJAX=lastMovement"))
+        {
+            //TODO Draw Last Movement
+            return;
+        }
+        if (param.equals("AJAX=hgroups") || param.equals("AJAX=xgroups"))
+        {
+            boolean misterx=false;
+            if (param.equals("AJAX=xgroups")) misterx = true;
+
+            String[] sGroups = resp.split("<br/>");
+            for (String group : sGroups) {
+                String[] groupVals = group.split(" \r\n");
+                updateGroup(groupVals, misterx);
+            }
+            DrawGroups(misterx);
+        }
+    }
 	
 	public void updateGroup(String[] groupVals, boolean misterx) {
 		try {

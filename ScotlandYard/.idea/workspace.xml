@@ -128,9 +128,16 @@
       <file leaf-file-name="MyMap.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MyMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5645757" vertical-offset="1275" max-vertical-offset="3111">
-              <caret line="128" column="20" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
-              <folding />
+            <state vertical-scroll-proportion="0.18696187" vertical-offset="1616" max-vertical-offset="2652">
+              <caret line="159" column="37" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1031#1040#0" expanded="true" />
+                <element signature="class#UpdateTask#0;class#MyMap#0" expanded="false" />
+                <element signature="method#DrawGroups#0;class#MyMap#0" expanded="false" />
+                <element signature="e#3491#5646#0" expanded="true" />
+                <element signature="e#5631#5632#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -817,8 +824,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MyMap.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Tracking.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MyMap.java" />
       </list>
     </option>
   </component>
@@ -1292,7 +1299,7 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1314,7 +1321,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="3553">
           <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1031#1040#0" expanded="true" />
+            <element signature="class#UpdateTask#0;class#MyMap#0" expanded="false" />
+            <element signature="method#DrawGroups#0;class#MyMap#0" expanded="false" />
+            <element signature="e#3491#5646#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1336,7 +1350,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="3553">
           <caret line="49" column="8" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1031#1040#0" expanded="true" />
+            <element signature="class#UpdateTask#0;class#MyMap#0" expanded="false" />
+            <element signature="method#DrawGroups#0;class#MyMap#0" expanded="false" />
+            <element signature="e#3491#5646#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1548,9 +1569,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MyMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5645757" vertical-offset="1275" max-vertical-offset="3111">
-          <caret line="128" column="20" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
-          <folding />
+        <state vertical-scroll-proportion="0.18696187" vertical-offset="1616" max-vertical-offset="2652">
+          <caret line="159" column="37" selection-start-line="159" selection-start-column="37" selection-end-line="159" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1031#1040#0" expanded="true" />
+            <element signature="class#UpdateTask#0;class#MyMap#0" expanded="false" />
+            <element signature="method#DrawGroups#0;class#MyMap#0" expanded="false" />
+            <element signature="e#3491#5646#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
