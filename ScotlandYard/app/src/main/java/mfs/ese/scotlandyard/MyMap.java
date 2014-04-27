@@ -37,6 +37,7 @@ public class MyMap extends Activity implements HttpResp{
 	class SYGroup{
 		public int groupNumber;
 		public LatLng position;
+        public LatLng prevPosition;
 		public String comment;
 		public String timestamp;
 		public String direction;
@@ -48,6 +49,7 @@ public class MyMap extends Activity implements HttpResp{
 		public SYGroup(String[] groupVals, boolean misterx){
 			groupNumber = Integer.parseInt(groupVals[0]);
 			position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
+            prevPosition = position;//keine Alte Position übergeben, also die gleiche nehmen
 			isXGroup = misterx;
 			direction = groupVals[3];
 			transportation = groupVals[4];
@@ -181,8 +183,10 @@ public class MyMap extends Activity implements HttpResp{
 			for (SYGroup gp : groups) {
 				if (gp.groupNumber == Integer.parseInt(groupVals[0])) {
 					alreadyInList = true;
-
+                    LatLng oldPos = gp.position;
 					gp.position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
+                    if (oldPos != gp.position)
+                        gp.prevPosition = oldPos;
 					gp.direction = groupVals[3];
 					gp.transportation = groupVals[4];
 					gp.comment = groupVals[5];
