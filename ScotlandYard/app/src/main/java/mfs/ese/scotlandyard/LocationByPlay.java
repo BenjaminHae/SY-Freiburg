@@ -46,6 +46,7 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
         mLocationRequest.setFastestInterval(LocationUtils.FAST_INTERVAL_CEILING_IN_MILLISECONDS);
 
         mLocationClient = new LocationClient(mMainActivity, this, this);
+        mLocationClient.connect();
     }
 
     /**
@@ -93,13 +94,18 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
      * to Location Services
      */
     private void startPeriodicUpdates() {
-        if (servicesConnected())
+        if (servicesConnected()) {
             mLocationClient.requestLocationUpdates(mLocationRequest, this);
+        }
     }
 
     public void StartTracking()
     {
         this.startPeriodicUpdates();
+    }
+    public void PauseTracking()
+    {
+        this.stopPeriodicUpdates();
     }
 
     /**

@@ -23,7 +23,7 @@ public class Tracking extends IntentService implements HttpResp{
 	
 	
 	@Override
-	  protected void onHandleIntent(Intent intent) {
+	protected void onHandleIntent(Intent intent) {
 	      Reminder();
 	  }
 	

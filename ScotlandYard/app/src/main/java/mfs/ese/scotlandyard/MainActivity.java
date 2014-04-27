@@ -1,5 +1,6 @@
 package mfs.ese.scotlandyard;
 
+import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -14,16 +15,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 public class MainActivity extends Activity implements HttpResp {
 
 	private boolean isTracking=false;
     static public LocationByPlay mLocationByPlay;
 	public HttpResp resp = this;
-	
+    private Resources mResources;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        mResources = this.getResources();
 		setContentView(R.layout.activity_main);
 		
 		Spinner spinner = (Spinner) findViewById(R.id.transportationSpinner);
@@ -37,7 +41,16 @@ public class MainActivity extends Activity implements HttpResp {
 			
 		mLocationByPlay = new LocationByPlay(this);
 
-
+        final Switch _switch = (Switch) findViewById(R.id.switchLocation);
+        _switch.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+            if (_switch.isChecked())
+            {
+                mLocationByPlay.StartTracking();
+            }
+            else
+                mLocationByPlay.PauseTracking();}
+        });
 		final Button button = (Button) findViewById(R.id.button1);
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -89,10 +102,7 @@ public class MainActivity extends Activity implements HttpResp {
 				
 				//Send position and other stuff
 				//Get current position
-	    	    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	    	    Criteria criteria = new Criteria();
-	    	    String provider = locationManager.getBestProvider(criteria, false);
-	    	    Location location = locationManager.getLastKnownLocation(provider);
+	    	    Location location = mLocationByPlay.getLocation();
 	    	    
 	    	    int gpid=-1;
 	    	    
@@ -121,7 +131,7 @@ public class MainActivity extends Activity implements HttpResp {
 		        	}
 		        	else{
 			        	//Send position
-			        	Http con = new Http("http://www.benjaminh.de/sy/ins.php", resp);
+			        	Http con = new Http(mResources.getString(R.string.URL_ins), resp);
 			        	con.setPost(true);
 			        	con.execute(groupId,position,transportation,direction,comment);
 		        	}
@@ -172,13 +182,4 @@ public class MainActivity extends Activity implements HttpResp {
 		builder.setPositiveButton("OK", null);
 		builder.show();
 	}
-
-    /*
-         * Called when the Activity is no longer visible at all.
-         * Stop updates and disconnect.
-         */
-    @Override
-    public void onStop() {
-        mLocationByPlay.EndTracking();
-    }
 }

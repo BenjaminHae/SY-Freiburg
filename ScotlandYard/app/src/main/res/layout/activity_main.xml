@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="18dp"
-        android:text="Gruppennummer:" />
+        android:text="Gruppe:" />
 
     <EditText
         android:id="@+id/groupIdText"
@@ -29,7 +29,8 @@
         android:layout_alignBottom="@+id/textView1"
         android:layout_toRightOf="@+id/textView1"
         android:ems="10"
-        android:inputType="numberSigned" >
+        android:inputType="numberSigned"
+        android:layout_toLeftOf="@+id/switchLocation">
 
         <requestFocus />
     </EditText>
@@ -127,9 +128,18 @@
         android:layout_alignRight="@+id/commentText"
         android:layout_below="@+id/commentText"
         android:text="Position jetzt bekanntgeben" />
-    
 
-    
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/switchLocation"
+            android:text="Location"
+            android:layout_alignBaseline="@+id/groupIdText"
+            android:layout_alignBottom="@+id/groupIdText"
+            android:layout_alignRight="@+id/button1"
+            android:layout_alignEnd="@+id/button1"
+            android:checked="false" />
 
-</RelativeLayout>
+
+    </RelativeLayout>
 </ScrollView>
