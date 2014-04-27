@@ -11,5 +11,5 @@ TODO
  - Fangen
  - Route verfolgen auf dem Handy
  - letzten Schritt für jeden Mr. X anzeigen
- - Gruppe usw. persistent speichern
  - Updates mit notification
+ - Gruppe usw. persistent speichern
