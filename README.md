@@ -10,6 +10,9 @@ TODO
  - Tracking für Mr. X
  - Fangen
  - Route verfolgen auf dem Handy
- - letzten Schritt für jeden Mr. X anzeigen
  - Updates mit notification
  - Gruppe usw. persistent speichern
+ 
+Testen
+====
+- letzten Schritt für jeden Mr. X anzeigen
