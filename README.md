@@ -6,13 +6,14 @@ Scotland Yard App
 TODO
 ====
  - Kommentare anzeigen
- - eigene aktuelle Position
+ - eigene aktuelle Position anzeigen
  - Tracking für Mr. X
- - Fangen
- - Route verfolgen auf dem Handy
  - Updates mit notification
  - Gruppe usw. persistent speichern
+ 
+ - Route verfolgen auf dem Handy
  
 Testen
 ====
 - letzten Schritt für jeden Mr. X anzeigen
+- Fangen
