@@ -15,9 +15,12 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -43,6 +46,7 @@ public class MyMap extends Activity implements HttpResp{
 		public String direction;
 		public String transportation;
 		public Marker marker;
+        public Polyline line;
 		public boolean isXGroup;
 		
 		
@@ -143,6 +147,21 @@ public class MyMap extends Activity implements HttpResp{
                                             .snippet(gp.timestamp));
                                 }
                             }
+                            if (gp.isXGroup) {
+                                if (gp.line != null) {
+                                    Log.d("std", "Updating existing link");
+                                    List<LatLng> pts = new ArrayList<LatLng>();
+                                    pts.add(gp.position);
+                                    pts.add(gp.prevPosition);
+                                    gp.line.setPoints(pts);
+                                } else {
+                                    Log.d("std", "Creating new link");
+                                    gp.line = mMap.addPolyline(new PolylineOptions()
+                                            .add(gp.position, gp.prevPosition)
+                                            .width(1)
+                                            .color(Color.RED));
+                                }
+                            }
                         }
 
                     } catch (Exception e) {
@@ -157,11 +176,6 @@ public class MyMap extends Activity implements HttpResp{
 
 	@Override
 	public void response(String url, String param, String resp) {
-        if (param.equals("AJAX=lastMovement"))
-        {
-            //TODO Draw Last Movement
-            return;
-        }
         if (param.equals("AJAX=hgroups") || param.equals("AJAX=xgroups"))
         {
             boolean misterx=false;
