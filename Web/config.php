@@ -1,11 +1,12 @@
 <?php
 class syDB{
-	include('private.php');
+	private $host, $user, $pwd;
 
    private $connection;
    function __construct() {
-		$this->connection=mysql_connect(self::host, self::user, self::pwd) or die ("Verbindungsversuch fehlgeschlagen");
-		mysql_select_db(self::db, $this->connection) or die("Konnte die Datenbank nicht waehlen.");
+		include('private.php');
+		$this->connection=mysql_connect($this->host, $this->user, $this->pwd) or die ("Verbindungsversuch fehlgeschlagen");
+		mysql_select_db($this->db, $this->connection) or die("Konnte die Datenbank nicht waehlen.");
    }
    public function Insert($gp, $pos, $add, $dir, $trans, $comm)
    {
@@ -22,8 +23,8 @@ class syDB{
 		   die("Kein Standort angegeben");
 		$dir = mysql_real_escape_string(trim($dir));
 		$trans = mysql_real_escape_string(trim($trans));
-		if(($gp<10) and ($trans==""))
-		   die("Kein Fortbewegungsmittel angegeben");
+		//if(($gp<10) and ($trans==""))
+		//   die("Kein Fortbewegungsmittel angegeben");
 		$comm = mysql_real_escape_string(trim($comm));
 		$sql = "INSERT INTO scotland_yard VALUES ($gp,'$pos','$add','$dir','$trans','$comm', DEFAULT);";
 		return mysql_query($sql, $this->connection) or die("Konnte den Datensatz nicht eintragen.");
