@@ -21,7 +21,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" /><!-- optional um schlaf zu verhindern-->
-    <permission android:name=",mfs.ese.scotlandyard.permission.C2D_MESSAGE"
+    <permission android:name="mfs.ese.scotlandyard.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="mfs.ese.scotlandyard.permission.C2D_MESSAGE" />
 
