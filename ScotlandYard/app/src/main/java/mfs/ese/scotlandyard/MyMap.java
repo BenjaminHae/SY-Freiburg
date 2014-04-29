@@ -147,7 +147,7 @@ public class MyMap extends Activity implements HttpResp{
                                             .snippet(gp.timestamp));
                                 }
                             }
-                            if (gp.isXGroup) {
+                            if (gp.isXGroup) {//Bewegungslinien zeigen
                                 if (gp.line != null) {
                                     Log.d("std", "Updating existing link");
                                     List<LatLng> pts = new ArrayList<LatLng>();
@@ -158,7 +158,7 @@ public class MyMap extends Activity implements HttpResp{
                                     Log.d("std", "Creating new link");
                                     gp.line = mMap.addPolyline(new PolylineOptions()
                                             .add(gp.position, gp.prevPosition)
-                                            .width(1)
+                                            .width(5)
                                             .color(Color.RED));
                                 }
                             }
