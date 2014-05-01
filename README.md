@@ -5,8 +5,9 @@ Scotland Yard App
 
 TODO
 ====
- - Kommentare anzeigen
+ - Kommentare anzeigen(Uhrzeit sinnvoll machen)
  - eigene aktuelle Position anzeigen
+ - Startanzeige in der Karte setzen
  - Tracking für Mr. X
  - Updates mit notification
  - Gruppe usw. persistent speichern

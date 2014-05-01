@@ -162,7 +162,7 @@ public class MyMap extends Activity implements HttpResp{
                                     Log.d("std", "Creating new link");
                                     gp.line = mMap.addPolyline(new PolylineOptions()
                                             .add(gp.position, gp.prevPosition)
-                                            .width(5)
+                                            .width(3)
                                             .color(Color.RED));
                                 }
                             }
