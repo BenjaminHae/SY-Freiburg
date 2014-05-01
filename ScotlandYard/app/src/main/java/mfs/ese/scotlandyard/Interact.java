@@ -3,6 +3,7 @@ package mfs.ese.scotlandyard;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,26 @@ import android.os.Build;
 
 
 public class Interact extends Activity {
+
+    public void refresh()
+    {
+
+    }
+
+    public String generateCommentHTML(String no, String Time, String Comment) {
+        return "<b>Gruppe " + no + "</b> um <em>" + Time + "</em><br/>" + Comment;
+    }
+
+    //Karte zeigen
+    public void showMap() {
+        Intent intent = new Intent(this, MyMap.class);
+        startActivity(intent);
+    }
+
+    public void showSettings() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +60,20 @@ public class Interact extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_map:
+                showMap();
+                return true;
+            case R.id.action_settings:
+                showSettings();
+                return true;
+            case R.id.action_refresh:
+                refresh();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     /**

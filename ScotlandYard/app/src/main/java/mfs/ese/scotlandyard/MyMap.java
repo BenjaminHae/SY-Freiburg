@@ -232,9 +232,9 @@ public class MyMap extends Activity implements HttpResp{
         return true;
     }
 
-    public void showInteract() {//TODO in beiden implementieren!
-        //Intent intent = new Intent(this, MyMap.class);
-        //startActivity(intent);
+    public void showInteract() {
+        Intent intent = new Intent(this, Interact.class);
+        startActivity(intent);
     }
 
     public void showSettings() {

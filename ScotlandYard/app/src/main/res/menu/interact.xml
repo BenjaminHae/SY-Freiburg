@@ -2,8 +2,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="mfs.ese.scotlandyard.Interact" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item
+        android:id="@+id/action_settings"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+    <!--<item android:id="@+id/action_interact"
+        android:icon="@drawable/ic_menu_allfriends"
+        android:title="@string/action_interact"
+        android:showAsAction="ifRoom"/>-->
+    <item android:id="@+id/action_map"
+        android:icon="@drawable/ic_menu_mapmode"
+        android:title="@string/action_mapmode"
+        android:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_refresh"
+        android:icon="@drawable/ic_menu_refresh"
+        android:title="@string/action_refresh"
+        android:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_newestComments"
+        android:icon="@drawable/ic_menu_refresh"
+        android:title="@string/action_refresh"
+        android:showAsAction="never"/>
+    <item android:id="@+id/action_allComments"
+        android:icon="@drawable/ic_menu_refresh"
+        android:title="@string/action_refresh"
+        android:showAsAction="never"/>
+    <item android:id="@+id/action_CommentsBy"
+        android:icon="@drawable/ic_menu_refresh"
+        android:title="@string/action_refresh"
+        android:showAsAction="never"/>
 </menu>

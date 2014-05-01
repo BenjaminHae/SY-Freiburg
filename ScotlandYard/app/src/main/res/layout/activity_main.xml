@@ -100,7 +100,9 @@
         android:layout_alignParentLeft="true"
         android:singleLine="true"
         android:layout_alignRight="@+id/transportationSpinner"
-        android:layout_alignEnd="@+id/transportationSpinner" />
+        android:layout_alignEnd="@+id/transportationSpinner"
+        android:hint="@string/hint_direction"
+        android:inputType="text" />
 
     <TextView
         android:id="@+id/textView5"

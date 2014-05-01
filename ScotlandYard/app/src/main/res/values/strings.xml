@@ -72,5 +72,7 @@
     <string name="connection_error_sign_in_required">The user is not signed in</string>
     <string name="connection_error_unknown">An unknown error occurred</string>
     <string name="title_activity_interact">Interact</string>
+    <string name="hint_direction">z.B. nächstes Ziel</string>
+    <string name="send">Senden</string>
 
 </resources>
