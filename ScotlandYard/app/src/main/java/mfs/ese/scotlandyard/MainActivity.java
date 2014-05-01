@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
@@ -51,7 +52,7 @@ public class MainActivity extends Activity implements HttpResp {
             else
                 mLocationByPlay.PauseTracking();}
         });
-		final Button button = (Button) findViewById(R.id.button1);
+		final Button button = (Button) findViewById(R.id.button1);//AutoTracking aktivieren
 		button.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
@@ -86,64 +87,73 @@ public class MainActivity extends Activity implements HttpResp {
 			}
 		});
 
-		final Button button2 = (Button) findViewById(R.id.button2);
+		final Button button2 = (Button) findViewById(R.id.button2);//Karte anzeigen
 		button2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				showMap();
 				
 			}
 		});
+
+        final Button sendCatch = (Button) findViewById(R.id.sendCatch);//Gefangen von absenden
+        sendCatch.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v)
+            {
+                SendLocation("Gefangen von "+((EditText) findViewById(R.id.editCatch)).getText().toString(),"","");
+            }
+        });
 		
-		
-		final Button submit = (Button) findViewById(R.id.submitPositionButton);
+		final Button submit = (Button) findViewById(R.id.submitPositionButton);//Position manuell senden
 		submit.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-
-				
-				//Send position and other stuff
-				//Get current position
-	    	    Location location = mLocationByPlay.getLocation();
-	    	    
-	    	    int gpid=-1;
-	    	    
-	    	    if (location != null){
-		    	    try{
-		    	    	gpid = Integer.parseInt(((EditText) findViewById(R.id.groupIdText)).getText().toString());
-		    	    }
-		    	    catch(Exception e){
-		    	    	//Parse error
-		    	    	e.printStackTrace();
-		    	    }
-		    	    
-		    	    
-		    	    String groupId = "group="+String.valueOf(gpid);
-		        	String position = "position="+location.getLatitude()+","+location.getLongitude();
-		        	String transportation = "transportation="+((Spinner) findViewById(R.id.transportationSpinner)).getSelectedItem().toString();
-		        	String direction = "direction="+((EditText) findViewById(R.id.directionText)).getText().toString();
-		        	String comment = "comment="+((EditText) findViewById(R.id.commentText)).getText().toString();
-		        	
-		        	if (gpid < 0){
-		        		MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
-		        		((EditText)findViewById(R.id.groupIdText)).requestFocus();
-		        	}
-		        	else if (transportation.equals("transportation=[Bitte wählen]")){
-		        		MsgBox("Fehler", "Bitte eine Fortbewegungsmittel auswählen!");
-		        	}
-		        	else{
-			        	//Send position
-			        	Http con = new Http(mResources.getString(R.string.URL_ins), resp);
-			        	con.setPost(true);
-			        	con.execute(groupId,position,transportation,direction,comment);
-		        	}
-		        	
-	    	    }
-
-			}
+                String comment = ((EditText) findViewById(R.id.commentText)).getText().toString();
+                String transportation = ((Spinner) findViewById(R.id.transportationSpinner)).getSelectedItem().toString();
+                String direction = ((EditText) findViewById(R.id.directionText)).getText().toString();
+                SendLocation(comment, transportation, direction);
+            }
 		});
 	}
 
-	public void showMap() {
+    private void SendLocation(String _comment, String _transportation, String _direction) {
+        //Send position and other stuff
+        //Get current position
+        Location location = mLocationByPlay.getLocation();
+
+        int gpid=-1;
+
+        if (location != null){
+            try{
+                gpid = Integer.parseInt(((EditText) findViewById(R.id.groupIdText)).getText().toString());
+            }
+            catch(Exception e){
+                //Parse error
+                e.printStackTrace();
+            }
+
+
+            String groupId = "group="+String.valueOf(gpid);
+            String position = "position="+location.getLatitude()+","+location.getLongitude();
+            String transportation = "transportation="+_transportation;
+            String direction = "direction="+_direction;
+            String comment = "comment="+_comment;
+
+            if (gpid < 0){
+                MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                ((EditText)findViewById(R.id.groupIdText)).requestFocus();
+            }
+            else{
+                //Send position
+                Http con = new Http(mResources.getString(R.string.URL_ins), resp);
+                con.setPost(true);
+                con.execute(groupId,position,transportation,direction,comment);
+            }
+
+        }
+    }
+
+    public void showMap() {
 		Intent intent = new Intent(this, MyMap.class);
+
 		startActivity(intent);
 	}
 
@@ -166,14 +176,23 @@ public class MainActivity extends Activity implements HttpResp {
 
 	@Override
 	public void response(String url, String param, String resp) {
-		if (resp.equals("OK")){
-			MsgBox("OK", "Position erfolgreich übertragen!");
-		}
-		else{
-			MsgBox("Fehler", "Es gab ein Problem bei der Übertragung: "+resp);
-		}
-		
-	}
+        if (url.equals(mResources.getString(R.string.URL_ins))) {
+            if (resp.equals("OK")) {
+                MsgBox("OK", "Position erfolgreich übertragen!");
+            } else {
+                MsgBox("Fehler", "Es gab ein Problem bei der Übertragung: " + resp);
+            }
+        } else if (url.equals(mResources.getString(R.string.URL_ajax))) {
+            if (param.contains("exX"))
+            {
+                //Frage nach welche MrX existieren
+            }
+            else if(param.contains("commentsBy"))
+            {
+                //Kommentare anzeigen
+            }
+        }
+    }
 	
 	public void MsgBox(String title, String message){
 		Builder builder = new Builder(this);

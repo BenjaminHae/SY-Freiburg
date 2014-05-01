@@ -95,7 +95,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_below="@+id/textView4"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/textView5"
@@ -112,7 +113,8 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:layout_below="@+id/textView5"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:singleLine="true" />
     
     <Button
         android:id="@+id/submitPositionButton"
