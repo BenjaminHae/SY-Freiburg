@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView"
+        android:id="@+id/commentText"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -40,5 +40,6 @@
         android:layout_toLeftOf="@+id/SendCommentButton"
         android:layout_alignBottom="@+id/SendCommentButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="Kommentar" />
 </RelativeLayout>

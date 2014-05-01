@@ -1,14 +1,9 @@
 package mfs.ese.scotlandyard;
 
+import android.app.AlertDialog;
 import android.content.res.Resources;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog.Builder;
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,7 +76,7 @@ public class MainActivity extends Activity implements HttpResp {
 					MsgBox("Fehler", "Mister X Gruppen müssen manuell ihre Position senden!");
 				}
 				else{
-					MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
 	        		((EditText)findViewById(R.id.groupIdText)).requestFocus();
 				}
 
@@ -92,7 +87,6 @@ public class MainActivity extends Activity implements HttpResp {
 		button2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				showMap();
-				
 			}
 		});
 
@@ -100,7 +94,20 @@ public class MainActivity extends Activity implements HttpResp {
         sendCatch.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v)
             {
-                SendLocation("Gefangen von "+((EditText) findViewById(R.id.editCatch)).getText().toString(),"","");
+                int gpid = -1;
+                try{
+                    gpid = Integer.parseInt(((EditText) findViewById(R.id.groupIdText)).getText().toString());
+                }
+                catch(Exception e){
+                    //Parse error
+                    e.printStackTrace();
+                }
+                if (gpid < 0){
+                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                    ((EditText)findViewById(R.id.groupIdText)).requestFocus();
+                }
+                else
+                    Vars.SendLocation(gpid, "Gefangen von "+((EditText) findViewById(R.id.editCatch)).getText().toString(),"","", mLocationByPlay.getLocation(), resp);
             }
         });
 		
@@ -110,47 +117,23 @@ public class MainActivity extends Activity implements HttpResp {
                 String comment = ((EditText) findViewById(R.id.commentText)).getText().toString();
                 String transportation = ((Spinner) findViewById(R.id.transportationSpinner)).getSelectedItem().toString();
                 String direction = ((EditText) findViewById(R.id.directionText)).getText().toString();
-                SendLocation(comment, transportation, direction);
+                int gpid = -1;
+                try{
+                    gpid = Integer.parseInt(((EditText) findViewById(R.id.groupIdText)).getText().toString());
+                }
+                catch(Exception e){
+                    //Parse error
+                    e.printStackTrace();
+                }
+                if (gpid < 0){
+                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                    ((EditText)findViewById(R.id.groupIdText)).requestFocus();
+                }
+                else
+                    Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
             }
 		});
 	}
-
-    private void SendLocation(String _comment, String _transportation, String _direction) {
-        //Send position and other stuff
-        //Get current position
-        Location location = mLocationByPlay.getLocation();
-
-        int gpid=-1;
-
-        if (location != null){
-            try{
-                gpid = Integer.parseInt(((EditText) findViewById(R.id.groupIdText)).getText().toString());
-            }
-            catch(Exception e){
-                //Parse error
-                e.printStackTrace();
-            }
-
-
-            String groupId = "group="+String.valueOf(gpid);
-            String position = "position="+location.getLatitude()+","+location.getLongitude();
-            String transportation = "transportation="+_transportation;
-            String direction = "direction="+_direction;
-            String comment = "comment="+_comment;
-
-            if (gpid < 0){
-                MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
-                ((EditText)findViewById(R.id.groupIdText)).requestFocus();
-            }
-            else{
-                //Send position
-                Http con = new Http(mResources.getString(R.string.URL_ins), resp);
-                con.setPost(true);
-                con.execute(groupId,position,transportation,direction,comment);
-            }
-
-        }
-    }
 
     //Karte zeigen
     public void showMap() {
@@ -214,12 +197,12 @@ public class MainActivity extends Activity implements HttpResp {
             }
         }
     }
-	
-	public void MsgBox(String title, String message){
-		Builder builder = new Builder(this);
-		builder.setTitle(title);
-		builder.setMessage(message);
-		builder.setPositiveButton("OK", null);
-		builder.show();
-	}
+
+    public void MsgBox(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", null);
+        builder.show();
+    }
 }
