@@ -78,7 +78,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/sendCatch"
+        android:layout_alignEnd="@+id/sendCatch" />
 
     
     <TextView
@@ -96,7 +98,9 @@
         android:ems="10"
         android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:layout_alignRight="@+id/transportationSpinner"
+        android:layout_alignEnd="@+id/transportationSpinner" />
 
     <TextView
         android:id="@+id/textView5"
@@ -114,7 +118,9 @@
         android:inputType="textMultiLine"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:layout_alignRight="@+id/directionText"
+        android:layout_alignEnd="@+id/directionText" />
     
     <Button
         android:id="@+id/submitPositionButton"
@@ -122,7 +128,9 @@
         android:layout_height="wrap_content"
         android:text="Position jetzt bekanntgeben"
         android:layout_below="@+id/commentText"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/commentText"
+        android:layout_alignEnd="@+id/commentText" />
 
         <Switch
             android:layout_width="wrap_content"

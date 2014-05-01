@@ -21,7 +21,7 @@ import android.widget.Switch;
 public class MainActivity extends Activity implements HttpResp {
 
 	private boolean isTracking=false;
-    static public LocationByPlay mLocationByPlay;
+    public static LocationByPlay mLocationByPlay;
 	public HttpResp resp = this;
     private Resources mResources;
 
@@ -153,7 +153,6 @@ public class MainActivity extends Activity implements HttpResp {
 
     public void showMap() {
 		Intent intent = new Intent(this, MyMap.class);
-
 		startActivity(intent);
 	}
 

@@ -34,7 +34,8 @@
 
         <activity
             android:name="mfs.ese.scotlandyard.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,7 +45,9 @@
         <activity
             android:name="mfs.ese.scotlandyard.MyMap"
             android:label="@string/title_activity_map"
-            android:screenOrientation="portrait"  >
+
+            android:theme="@android:style/Theme.Holo.Light" >
+            <!--android:screenOrientation="portrait"-->
         </activity>
         
         <service android:name="mfs.ese.scotlandyard.Tracking" />

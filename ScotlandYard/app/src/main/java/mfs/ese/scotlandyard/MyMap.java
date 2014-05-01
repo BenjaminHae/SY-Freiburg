@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Menu;
 
 public class MyMap extends Activity implements HttpResp{
 
@@ -221,4 +222,10 @@ public class MyMap extends Activity implements HttpResp{
 			e.printStackTrace();
 		}
 	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.map, menu);
+        return true;
+    }
 }
