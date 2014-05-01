@@ -11,6 +11,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -151,10 +152,16 @@ public class MainActivity extends Activity implements HttpResp {
         }
     }
 
+    //Karte zeigen
     public void showMap() {
 		Intent intent = new Intent(this, MyMap.class);
 		startActivity(intent);
 	}
+
+    public void showInteract() {//TODO in beiden implementieren!
+        //Intent intent = new Intent(this, MyMap.class);
+        //startActivity(intent);
+    }
 
 	public void startTracking() {
         mLocationByPlay.StartTracking();
@@ -172,6 +179,21 @@ public class MainActivity extends Activity implements HttpResp {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_map:
+                showMap();
+                return true;
+            case R.id.action_interact:
+                showInteract();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 	@Override
 	public void response(String url, String param, String resp) {

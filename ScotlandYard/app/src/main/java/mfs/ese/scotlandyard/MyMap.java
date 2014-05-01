@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
@@ -29,6 +30,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class MyMap extends Activity implements HttpResp{
 
@@ -109,6 +111,7 @@ public class MyMap extends Activity implements HttpResp{
 			
 			new Http("http://www.benjaminh.de/sy/ajax.php", resp)
 			.execute("AJAX=xgroups");
+            //TODO Refreshing oder so anzeigen
         }
     }
 
@@ -227,5 +230,38 @@ public class MyMap extends Activity implements HttpResp{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.map, menu);
         return true;
+    }
+
+    public void showInteract() {//TODO in beiden implementieren!
+        //Intent intent = new Intent(this, MyMap.class);
+        //startActivity(intent);
+    }
+
+    public void showSettings() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_interact:
+                showInteract();
+                return true;
+            case R.id.action_refresh:
+                // Get positions
+                new Http("http://www.benjaminh.de/sy/ajax.php", resp)
+                        .execute("AJAX=hgroups");
+
+                new Http("http://www.benjaminh.de/sy/ajax.php", resp)
+                        .execute("AJAX=xgroups");//TODO Refreshing oder so anzeigen
+                return true;
+            case R.id.action_settings:
+                showSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
