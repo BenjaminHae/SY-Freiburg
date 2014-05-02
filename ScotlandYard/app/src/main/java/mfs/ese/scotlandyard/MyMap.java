@@ -1,6 +1,7 @@
 package mfs.ese.scotlandyard;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -40,7 +41,7 @@ public class MyMap extends Activity implements HttpResp{
 	boolean isUpdating=false;
 	private List<SYGroup> groups = new ArrayList<SYGroup>();
 	
-	class SYGroup{
+	class SYGroup implements Serializable {
 		public int groupNumber;
 		public LatLng position;
         public LatLng prevPosition;
@@ -68,9 +69,8 @@ public class MyMap extends Activity implements HttpResp{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);    
-        
-        
+        groups = (List<SYGroup>) savedInstanceState.getSerializable("group_positions");
+        setContentView(R.layout.activity_map);
         if (!isUpdating) {
 	      //Get current position
 		    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -86,9 +86,8 @@ public class MyMap extends Activity implements HttpResp{
 		        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 		    }
 
-        
+            DrawGroups();
         	UpdateMap();
-        	timer.schedule(new UpdateTask(), Vars.UPDATING_INTERVAL);
 		}
 		isUpdating = true;
         
@@ -115,8 +114,7 @@ public class MyMap extends Activity implements HttpResp{
         }
     }
 
-    /// mrX gibt an, ob MrX, oder Verfolger gezeichnet werden TODO
-    private void DrawGroups(boolean mrX)
+    private void DrawGroups()
     {
         if (act.hasWindowFocus()){
             Handler handler = new Handler(Looper.getMainLooper());
@@ -190,7 +188,7 @@ public class MyMap extends Activity implements HttpResp{
                 String[] groupVals = group.split(" \r\n");
                 updateGroup(groupVals, misterx);
             }
-            DrawGroups(misterx);
+            DrawGroups();
         }
     }
 	
@@ -263,5 +261,9 @@ public class MyMap extends Activity implements HttpResp{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    protected void onSaveInstanceState(Bundle icicle) {
+        super.onSaveInstanceState(icicle);
+        icicle.putSerializable("group_positions",(Serializable) groups);
     }
 }
