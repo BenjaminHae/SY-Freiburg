@@ -11,6 +11,33 @@
     <string name="action_refresh">aktualisieren</string>
     <string name="action_interact">Interaktion</string>
 
+    <string name="pref_header_main">Gruppeneinstellungen</string>
+    <string name="pref_title_group_id">Gruppennummer</string>
+    <string name="pref_summary_group_id">Wird am Anfang zugeteilt</string>
+    <string name="pref_title_auto_submit">Standort senden</string>
+    <string name="pref_summary_auto_submit">Der aktuelle Standort wird automatisch regelmäßig übertragen</string>
+
+    <string name="pref_title_submit_interval">Übertragungs Intervall</string>
+    <string name="pref_dialog_submit_interval">Intervall wählen</string>
+    <string-array name="pref_submit_interval_entries">
+        <item>30 Sekunden</item>
+        <item>1 Minute</item>
+        <item>2 Minuten</item>
+        <item>5 Minuten</item>
+        <item>7 Minuten</item>
+        <item>10 Minuten</item>
+    </string-array>
+    <string-array name="pref_submit_interval_values">
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>300</item>
+        <item>620</item>
+        <item>600</item>
+    </string-array>
+    <string name="pref_submit_interval_default">30</string>
+
+
     <string-array name="transportation_array">
         <item>[Bitte wählen]</item>
         <item>Strassenbahn</item>

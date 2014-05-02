@@ -20,7 +20,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
- <!-- optional um schlaf zu verhindern -->
+    <!-- optional um schlaf zu verhindern -->
     <permission
         android:name="mfs.ese.scotlandyard.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -46,18 +46,18 @@
         <activity
             android:name="mfs.ese.scotlandyard.MyMap"
             android:label="@string/title_activity_map"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
-
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+            android:parentActivityName="mfs.ese.scotlandyard.MainActivity">
             <!-- android:screenOrientation="portrait" -->
         </activity>
 
         <service android:name="mfs.ese.scotlandyard.Tracking" />
-        <!--<service android:name="mfs.ese.scotlandyard.PositionUpdater" />-->
+        <!-- <service android:name="mfs.ese.scotlandyard.PositionUpdater" /> -->
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCezMIhUJkjJqcXTr-Uji1vfFHtx2Q75D0" />
- <!-- Debug Key -->
+        <!-- Debug Key -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -65,7 +65,13 @@
         <activity
             android:name="mfs.ese.scotlandyard.Interact"
             android:label="@string/title_activity_interact"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar" >
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+            android:parentActivityName="mfs.ese.scotlandyard.MainActivity">
+        </activity>
+        <activity
+            android:name="mfs.ese.scotlandyard.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="mfs.ese.scotlandyard.MainActivity">
         </activity>
     </application>
 

@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <EditTextPreference
+        android:key="pref_group_id"
+        android:summary="@string/pref_summary_group_id"
+        android:title="@string/pref_title_group_id"
+        android:defaultValue="1" />
+    <CheckBoxPreference
+        android:key="pref_auto_submit_location"
+        android:summary="@string/pref_summary_auto_submit"
+        android:title="@string/pref_title_auto_submit"
+        android:defaultValue="false"/>
+    <ListPreference
+        android:dependency="pref_auto_submit_location"
+        android:key="pref_submit_interval"
+        android:title="@string/pref_title_submit_interval"
+        android:dialogTitle="@string/pref_dialog_submit_interval"
+        android:entries="@array/pref_submit_interval_entries"
+        android:entryValues="@array/pref_submit_interval_values"
+        android:defaultValue="@string/pref_submit_interval_default" />
 </PreferenceScreen>
