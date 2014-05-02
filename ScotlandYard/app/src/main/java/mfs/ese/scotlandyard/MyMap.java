@@ -39,8 +39,8 @@ public class MyMap extends Activity implements HttpResp{
 	public Activity act = this;
 	
 	boolean isUpdating=false;
-	private List<SYGroup> groups = new ArrayList<SYGroup>();
-	
+    private List<SYGroup> groups = new ArrayList<SYGroup>();
+
 	class SYGroup implements Serializable {
 		public int groupNumber;
 		public LatLng position;
@@ -49,47 +49,52 @@ public class MyMap extends Activity implements HttpResp{
 		public String timestamp;
 		public String direction;
 		public String transportation;
-		public Marker marker;
+		public transient Marker marker;
         public Polyline line;
 		public boolean isXGroup;
 		
 		
-		public SYGroup(String[] groupVals, boolean misterx){
-			groupNumber = Integer.parseInt(groupVals[0]);
+		public SYGroup(String[] groupVals, boolean misterx) {
+            groupNumber = Integer.parseInt(groupVals[0]);
 			position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
             prevPosition = position;//keine Alte Position übergeben, also die gleiche nehmen
-			isXGroup = misterx;
-			direction = groupVals[3];
-			transportation = groupVals[4];
-			comment = groupVals[5];
-			timestamp = groupVals[6].substring(11,16); //Nur Uhrzeit
-		}	
+            isXGroup = misterx;
+            direction = groupVals[3];
+            transportation = groupVals[4];
+            comment = groupVals[5];
+            timestamp = groupVals[6].substring(11, 16); //Nur Uhrzeit
+        }
 	}
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        groups = (List<SYGroup>) savedInstanceState.getSerializable("group_positions");
         setContentView(R.layout.activity_map);
         if (!isUpdating) {
 	      //Get current position
-		    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		    /*LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		    Criteria criteria = new Criteria();
 		    String provider = locationManager.getBestProvider(criteria, false);
 		    Location location = locationManager.getLastKnownLocation(provider);
 		    
-		    if (location != null){
-		    	GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-		        CameraPosition cameraPosition = new CameraPosition.Builder().target(
+		    if (location != null){*/
+
+            GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+		        /*CameraPosition cameraPosition = new CameraPosition.Builder().target(
 		                new LatLng(location.getLatitude(), location.getLongitude())).zoom(12).build();
-		 
 		        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-		    }
+		    }*/
 
             DrawGroups();
         	UpdateMap();
 		}
-		isUpdating = true;
+        else
+        {
+            Log.d("std", " already updating");
+        }
+        isUpdating = true;
         
     }
     
@@ -223,6 +228,7 @@ public class MyMap extends Activity implements HttpResp{
 			e.printStackTrace();
 		}
 	}
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -236,7 +242,7 @@ public class MyMap extends Activity implements HttpResp{
     }
 
     public void showSettings() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);//TODO vll. wieder zu Main machen
         startActivity(intent);
     }
 
@@ -261,9 +267,5 @@ public class MyMap extends Activity implements HttpResp{
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-    protected void onSaveInstanceState(Bundle icicle) {
-        super.onSaveInstanceState(icicle);
-        icicle.putSerializable("group_positions",(Serializable) groups);
     }
 }
