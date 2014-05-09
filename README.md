@@ -5,7 +5,7 @@ Scotland Yard App
 
 TODO
 ====
- - Kommentare anzeigen(Uhrzeit sinnvoll machen)
+ - Kommentare absenden(nur Gruppennummer fehlt)
  - Einstellungen
  - Tracking für Mr. X
  - Updates mit notification
@@ -17,6 +17,7 @@ Testen
 ====
 Erledigt
 ====
+ - Kommentare anzeigen(Uhrzeit sinnvoll machen)
  - eigene aktuelle Position anzeigen
  - letzten Schritt für jeden Mr. X anzeigen
  - Fangen

@@ -10,23 +10,21 @@
     <string name="action_mapmode">Karte</string>
     <string name="action_refresh">aktualisieren</string>
     <string name="action_interact">Interaktion</string>
-
     <string name="action_interact_comments_by">Kommentare von ...</string>
     <string name="action_interact_comments_by_X">Kommentare von X ...</string>
-    <!--Dialog-->
+    <!-- Dialog -->
     <string name="dialog_number_title">Nummer</string>
-    <string name="dialog_number_description">Nummer</string>
+    <string name="dialog_number_description">Nummer eingeben</string>
     <string name="dialog_number_ok">OK</string>
-    <string name="dialog_number_cancel">OK</string>
-
+    <string name="dialog_number_cancel">abbrechen</string>
     <string name="pref_header_main">Gruppeneinstellungen</string>
     <string name="pref_title_group_id">Gruppennummer</string>
     <string name="pref_summary_group_id">Wird am Anfang zugeteilt</string>
     <string name="pref_title_auto_submit">Standort senden</string>
     <string name="pref_summary_auto_submit">Der aktuelle Standort wird automatisch regelmäßig übertragen</string>
-
     <string name="pref_title_submit_interval">Übertragungs Intervall</string>
     <string name="pref_dialog_submit_interval">Intervall wählen</string>
+
     <string-array name="pref_submit_interval_entries">
         <item>30 Sekunden</item>
         <item>1 Minute</item>
@@ -43,8 +41,8 @@
         <item>620</item>
         <item>600</item>
     </string-array>
-    <string name="pref_submit_interval_default">30</string>
 
+    <string name="pref_submit_interval_default">30</string>
 
     <string-array name="transportation_array">
         <item>[Bitte wählen]</item>
@@ -106,11 +104,10 @@
     <string name="connection_error_outdated">Google Play services is out of date</string>
     <string name="connection_error_sign_in_required">The user is not signed in</string>
     <string name="connection_error_unknown">An unknown error occurred</string>
-
-
     <string name="title_activity_interact">Interact</string>
     <string name="hint_direction">z.B. nächstes Ziel</string>
     <string name="send">Senden</string>
     <string name="moreComments">+</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

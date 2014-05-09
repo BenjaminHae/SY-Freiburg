@@ -1,30 +1,24 @@
 package mfs.ese.scotlandyard;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.Fragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 
-public class Interact extends Activity implements HttpResp{
+public class Interact extends Activity implements HttpResp, NumberPickerDialog.NumberPickerDialogListener{
     public HttpResp resp = this;
     private Resources mResources;
+    private boolean mDialogForX = false;
 
     public void refresh(String state)
     {
@@ -41,13 +35,15 @@ public class Interact extends Activity implements HttpResp{
 
     @Override
     public void response(String url, String param, String resp) {
-        if (param.contains("AJAX=allComments"))
+        if (param.contains("AJAX=allComments")||param.contains("AJAX=commentsBy"))
         {
             String[] sComments = resp.split("<br/>");
             String outputText ="";
             for (String group : sComments) {
-                String[] groupVals = group.split(" \r\n");
-                outputText +=generateCommentHTML(groupVals[0],groupVals[6],groupVals[5]) + "<br/>";
+                if (!group.trim().equals("")) {
+                    String[] groupVals = group.split("\r\n");
+                    outputText += generateCommentHTML(groupVals[0], groupVals[6], groupVals[5]) + "<br/>";
+                }
             }
             ((TextView) findViewById(R.id.commentText)).setText(Html.fromHtml(outputText));
             if (param.contains("max"))
@@ -127,12 +123,35 @@ public class Interact extends Activity implements HttpResp{
                 refresh("");
                 return true;
             case R.id.action_CommentsBy:
-                DialogFragment newFragment = new NumberPicker();
+                mDialogForX = false;
+                DialogFragment newFragment = new NumberPickerDialog();
                 newFragment.show(getFragmentManager(), "missiles");
-                refresh("commentsBy&group=1");
+                return true;
+            case R.id.action_CommentsBy_X:
+                mDialogForX = true;
+                DialogFragment newXFragment = new NumberPickerDialog();
+                newXFragment.show(getFragmentManager(), "missiles");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the NoticeDialogFragment.NoticeDialogListener interface
+    @Override
+    public void onDialogPositiveClick(NumberPickerDialog dialog) {
+        // User touched the dialog's positive button
+        //(TextView) findViewById(R.id.commentText);
+        int group = dialog.getResult();
+        if (!mDialogForX)
+            group+=10;
+        refresh("commentsBy&group="+Integer.toString(group));
+    }
+
+    @Override
+    public void onDialogNegativeClick(NumberPickerDialog dialog) {
+        // User touched the dialog's negative button
+
     }
 }
