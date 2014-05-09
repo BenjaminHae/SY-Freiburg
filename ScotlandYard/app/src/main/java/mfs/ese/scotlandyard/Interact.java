@@ -20,20 +20,24 @@ import android.widget.TextView;
 
 public class Interact extends Activity implements HttpResp{
     public HttpResp resp = this;
-    private String state = "allComments";
     private Resources mResources;
 
-    public void refresh()
+    public void refresh(String state)
     {
+        if (state.equals(""))
+        {
+            state="allComments&max=10";
+        }
         TextView output = (TextView) findViewById(R.id.commentText);
         output.setText("");
+        String Parameters = "AJAX="+state;
         new Http("http://www.benjaminh.de/sy/ajax.php", resp)
-                .execute("AJAX="+state);
+                .execute(Parameters);
     }
 
     @Override
     public void response(String url, String param, String resp) {
-        if (param.equals("AJAX=allComments"))
+        if (param.contains("AJAX=allComments"))
         {
             String[] sComments = resp.split("<br/>");
             String outputText ="";
@@ -42,11 +46,15 @@ public class Interact extends Activity implements HttpResp{
                 outputText +=generateCommentHTML(groupVals[0],groupVals[6],groupVals[5]) + "<br/>";
             }
             ((TextView) findViewById(R.id.commentText)).setText(Html.fromHtml(outputText));
+            if (param.contains("max"))
+                ((Button) findViewById(R.id.buttonMoreComments)).setVisibility(View.VISIBLE);
+            else
+                ((Button) findViewById(R.id.buttonMoreComments)).setVisibility(View.GONE);
         }
         else if (url.equals(mResources.getString(R.string.URL_ins)))
         {
             if (resp.equals("OK")) {
-                refresh();
+                refresh("");
                 ((EditText) findViewById(R.id.editComment)).setText("");
             } else {
                 ((TextView) findViewById(R.id.commentText)).setText(Html.fromHtml(resp));
@@ -55,7 +63,7 @@ public class Interact extends Activity implements HttpResp{
     }
 
     public String generateCommentHTML(String no, String Time, String Comment) {
-        return "<b>Gruppe " + no + "</b> um <em>" + Time + "</em><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + Comment;
+        return "<b>Gruppe " + no + "</b> um <em>" + Time.split(" ")[1] + "</em><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + Comment;
     }
 
     //Karte zeigen
@@ -75,13 +83,20 @@ public class Interact extends Activity implements HttpResp{
         setContentView(R.layout.activity_interact);
         mResources = this.getResources();
 
-        final Button buttonSend = (Button) findViewById(R.id.sendComment);//AutoTracking aktivieren
+        final Button buttonSend = (Button) findViewById(R.id.sendComment);//Kommentar absenden
         buttonSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText text = (EditText) findViewById(R.id.editComment);
                 Vars.SendLocation(0, text.getText().toString(), "", "", "", resp);//TODO gpid setzen
             }
         });
+        final Button buttonMoreComments= (Button) findViewById(R.id.buttonMoreComments);//More Comments schauen
+        buttonMoreComments.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                refresh("allComments");
+            }
+        });
+        refresh("");
     }
 
     @Override
@@ -105,7 +120,7 @@ public class Interact extends Activity implements HttpResp{
                 showSettings();
                 return true;
             case R.id.action_refresh:
-                refresh();
+                refresh("");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

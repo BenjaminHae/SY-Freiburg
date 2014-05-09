@@ -11,8 +11,13 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right" >
+        android:layout_gravity="right"
+        android:layout_above="@+id/sendComment"
+        android:id="@+id/scrollView">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,8 +30,19 @@
             android:layout_alignParentEnd="true"
             android:focusable="false" />
 
-
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/moreComments"
+                android:id="@+id/buttonMoreComments"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/commentText" />
+        </RelativeLayout>
     </ScrollView>
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -35,7 +51,8 @@
         android:id="@+id/sendComment"
         android:layout_alignTop="@+id/editComment"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -46,5 +63,7 @@
         android:hint="Kommentar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/sendComment" />
+
 </RelativeLayout>
