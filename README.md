@@ -6,16 +6,17 @@ Scotland Yard App
 TODO
 ====
  - Kommentare anzeigen(Uhrzeit sinnvoll machen)
- - eigene aktuelle Position anzeigen
- - Startanzeige in der Karte setzen
+ - Einstellungen
  - Tracking für Mr. X
  - Updates mit notification
  - Gruppe usw. persistent speichern
  - Route verfolgen auf dem Handy
+ - Startanzeige in der Karte setzen
  
 Testen
 ====
 Erledigt
 ====
-- letzten Schritt für jeden Mr. X anzeigen
-- Fangen
+ - eigene aktuelle Position anzeigen
+ - letzten Schritt für jeden Mr. X anzeigen
+ - Fangen
