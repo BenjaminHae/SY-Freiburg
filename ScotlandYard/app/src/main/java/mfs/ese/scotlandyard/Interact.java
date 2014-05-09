@@ -2,7 +2,11 @@ package mfs.ese.scotlandyard;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -121,6 +125,11 @@ public class Interact extends Activity implements HttpResp{
                 return true;
             case R.id.action_refresh:
                 refresh("");
+                return true;
+            case R.id.action_CommentsBy:
+                DialogFragment newFragment = new NumberPicker();
+                newFragment.show(getFragmentManager(), "missiles");
+                refresh("commentsBy&group=1");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

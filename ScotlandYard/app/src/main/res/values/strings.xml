@@ -11,6 +11,14 @@
     <string name="action_refresh">aktualisieren</string>
     <string name="action_interact">Interaktion</string>
 
+    <string name="action_interact_comments_by">Kommentare von ...</string>
+    <string name="action_interact_comments_by_X">Kommentare von X ...</string>
+    <!--Dialog-->
+    <string name="dialog_number_title">Nummer</string>
+    <string name="dialog_number_description">Nummer</string>
+    <string name="dialog_number_ok">OK</string>
+    <string name="dialog_number_cancel">OK</string>
+
     <string name="pref_header_main">Gruppeneinstellungen</string>
     <string name="pref_title_group_id">Gruppennummer</string>
     <string name="pref_summary_group_id">Wird am Anfang zugeteilt</string>
