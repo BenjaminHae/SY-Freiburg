@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements HttpResp {
     public static LocationByPlay mLocationByPlay;
 	public HttpResp resp = this;
     private Resources mResources;
-    SharedPreferences mSettings;
+    public static SharedPreferences mSettings;
 
 
     @Override
@@ -53,43 +53,35 @@ public class MainActivity extends Activity implements HttpResp {
 
     private void populateOnClick() {
         final Switch _switch = (Switch) findViewById(R.id.switchLocation);
-        _switch.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-            if (_switch.isChecked())
-            {
-                mLocationByPlay.StartTracking();
+        _switch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (_switch.isChecked()) {
+                    mLocationByPlay.StartTracking();
+                } else
+                    mLocationByPlay.PauseTracking();
             }
-            else
-                mLocationByPlay.PauseTracking();}
         });
-        final Button button = (Button) findViewById(R.id.button1);//AutoTracking aktivieren
+        final Button button = (Button) findViewById(R.id.button1);//AutoTracking aktivieren //TODO mit Settings verbinden
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 int gpid = -1;
 
-                try{
-                gpid = Integer
-                        .parseInt(mSettings.getString("pref_group_id", "11"));
-                }
-                catch(Exception e){
+                try {
+                    gpid = Integer
+                            .parseInt(mSettings.getString("pref_group_id", "11"));
+                } catch (Exception e) {
                     //Parse error
                     e.printStackTrace();
                 }
 
-                if (gpid>=0 && gpid < 600){
-
-                    //Store gpid globally for Tracking
-                    Vars.groupNumber = gpid;
-
+                if (gpid >= 0 && gpid < 600) {
                     startTracking();
                     showMap();
-                }
-                else if (gpid>=0 && gpid > 600){
+                } else if (gpid >= 0 && gpid > 600) {
                     MsgBox("Fehler", "Mister X Gruppen müssen manuell ihre Position senden!");
-                }
-                else{
-MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                } else {
+                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
                     MainActivity.this.showSettings();
                 }
 
@@ -104,47 +96,42 @@ MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
         });
 
         final Button sendCatch = (Button) findViewById(R.id.sendCatch);//Gefangen von absenden
-        sendCatch.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v)
-            {
+        sendCatch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 int gpid = -1;
-                try{
+                try {
                     gpid = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     //Parse error
                     e.printStackTrace();
                 }
-                if (gpid < 0){
+                if (gpid < 0) {
                     MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
                     MainActivity.this.showSettings();
-                }
-                else
-                    Vars.SendLocation(gpid, "Gefangen von "+((EditText) findViewById(R.id.editCatch)).getText().toString(),"","", mLocationByPlay.getLocation(), resp);
+                } else
+                    Vars.SendLocation(gpid, "Gefangen von " + ((EditText) findViewById(R.id.editCatch)).getText().toString(), "", "", mLocationByPlay.getLocation(), resp);
             }
         });
 
         final Button submit = (Button) findViewById(R.id.submitPositionButton);//Position manuell senden
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-String comment = ((EditText) findViewById(R.id.commentText)).getText().toString();
-String transportation = ((Spinner) findViewById(R.id.transportationSpinner)).getSelectedItem().toString();
-String direction = ((EditText) findViewById(R.id.directionText)).getText().toString();
-int gpid = -1;
-try{
-gpid = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
-}
-catch(Exception e){
+                String comment = ((EditText) findViewById(R.id.commentText)).getText().toString();
+                String transportation = ((Spinner) findViewById(R.id.transportationSpinner)).getSelectedItem().toString();
+                String direction = ((EditText) findViewById(R.id.directionText)).getText().toString();
+                int gpid = -1;
+                try {
+                    gpid = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
+                } catch (Exception e) {
 //Parse error
-e.printStackTrace();
-}
-if (gpid < 0){
-MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
-MainActivity.this.showSettings();
-}
-else
-Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
-}
+                    e.printStackTrace();
+                }
+                if (gpid < 0) {
+                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                    MainActivity.this.showSettings();
+                } else
+                    Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
+            }
         });
     }
 

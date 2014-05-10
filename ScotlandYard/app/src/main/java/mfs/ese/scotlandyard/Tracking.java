@@ -5,20 +5,45 @@ import java.util.TimerTask;
 
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
+import android.content.SharedPreferences;
 import android.location.Location;
-import android.location.LocationManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class Tracking extends IntentService implements HttpResp{
     LocationByPlay mLocationByPlay;
+    SharedPreferences mSettings;
 
 	public Tracking() {
 		super("TrackingService");
 		// TODO Auto-generated constructor stub
         mLocationByPlay = MainActivity.mLocationByPlay;
+        mSettings = MainActivity.mSettings;
+        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                if (key.equals("pref_auto_submit_location"))//TODO funktioniert nicht, wird nie aufgerufen
+                {
+                    if(!prefs.getBoolean("pref_auto_submit_location", false))
+                    {
+                        if (timer!=null)
+                            timer.cancel();
+                    }
+                    else
+                        Reminder();
+                }
+                else if (key.equals("pref_submit_interval"))
+                {
+                    if (timer!= null)
+                    {
+                        timer.cancel();
+                        if (prefs.getBoolean("pref_auto_submit_location",false))
+                            Reminder();
+                    }
+                }
+            }
+        };
+        mSettings.registerOnSharedPreferenceChangeListener(listener);
 	}
 	
 	
@@ -30,7 +55,7 @@ public class Tracking extends IntentService implements HttpResp{
 	Timer timer;
 	public void Reminder() {
         timer = new Timer();
-        timer.schedule(new TrackingTask(this),0,Vars.TRACKING_INTERVAL);
+        timer.schedule(new TrackingTask(this),0,Integer.parseInt(mSettings.getString("pref_submit_interval","30"))*1000);
 	}
 
     class TrackingTask extends TimerTask {
@@ -48,7 +73,7 @@ public class Tracking extends IntentService implements HttpResp{
 	    	    //Send position
 	        	Http con = new Http("http://www.benjaminh.de/sy/ins.php", resp);
 	        	con.setPost(true);
-	        	con.execute("group="+Vars.groupNumber,"position="+location.getLatitude()+","+location.getLongitude());
+	        	con.execute("group="+mSettings.getString("pref_group_id",""),"position="+location.getLatitude()+","+location.getLongitude());
     	    }
         }
     }
