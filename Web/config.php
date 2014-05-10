@@ -32,7 +32,7 @@ class syDB{
 	public function GetGroupPosition($gp)
 	{
 		settype($gp, 'integer');
-		$sql = "SELECT * FROM scotland_yard WHERE scotland_yard.group = $gp AND NOT scotland_yard.position = '' ORDER BY timestamp DESC LIMIT 1;";
+		$sql = "SELECT * FROM scotland_yard WHERE scotland_yard.group_id = $gp AND NOT scotland_yard.position = '' ORDER BY timestamp DESC LIMIT 1;";
 		$query = mysql_query($sql, $this->connection);
 		return mysql_fetch_array($query);
 	}
@@ -45,7 +45,7 @@ class syDB{
 		{
 		   $limString=" LIMIT ".$limit;
 		}
-		$sql = "SELECT * FROM scotland_yard WHERE scotland_yard.group = $gp AND NOT scotland_yard.position = '' ORDER BY timestamp DESC$limString;";
+		$sql = "SELECT * FROM scotland_yard WHERE scotland_yard.group_id = $gp AND NOT scotland_yard.position = '' ORDER BY timestamp DESC$limString;";
 		$query = mysql_query($sql, $this->connection);
 			while($r=mysql_fetch_array($query))
 			{
@@ -55,7 +55,7 @@ class syDB{
 	}
 	public function GetGroupIDs()
 	{
-		$sql = "SELECT DISTINCT scotland_yard.group FROM scotland_yard ORDER BY scotland_yard.group;";
+		$sql = "SELECT DISTINCT scotland_yard.group_id FROM scotland_yard ORDER BY scotland_yard.group;";
 		$query = mysql_query($sql, $this->connection);
 		while($r=mysql_fetch_array($query))
 		{
@@ -72,7 +72,7 @@ class syDB{
 		{
 		   $limString=" LIMIT ".$limit;
 		}
-		$sql = "SELECT * FROM scotland_yard WHERE scotland_yard.group = $gp AND NOT scotland_yard.comment='' ORDER BY timestamp DESC$limString;";
+		$sql = "SELECT * FROM scotland_yard WHERE scotland_yard.group_id = $gp AND NOT scotland_yard.comment='' ORDER BY timestamp DESC$limString;";
 		$query = mysql_query($sql, $this->connection);
 		while($r=mysql_fetch_array($query))
 		{
