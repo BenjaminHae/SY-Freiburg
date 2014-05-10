@@ -5,7 +5,6 @@ Scotland Yard App
 
 TODO
 ====
- - Kommentare absenden(nur Gruppennummer fehlt)
  - Einstellungen
  - Tracking für Mr. X
  - Updates mit notification
@@ -14,8 +13,10 @@ TODO
  - Startanzeige in der Karte setzen
 Testen
 ====
+
 Erledigt
 ====
+ - Kommentare absenden(nur Gruppennummer fehlt)
  - Kommentare anzeigen(Uhrzeit sinnvoll machen)
  - eigene aktuelle Position anzeigen
  - letzten Schritt für jeden Mr. X anzeigen
