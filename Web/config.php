@@ -19,8 +19,8 @@ class syDB{
 			$gp -= 690;
 		$pos = mysql_real_escape_string(trim($pos));
 		$add = mysql_real_escape_string(trim($add));
-		if ($pos == "")
-		   die("Kein Standort angegeben");
+		//if ($pos == "")
+		   //die("Kein Standort angegeben");
 		$dir = mysql_real_escape_string(trim($dir));
 		$trans = mysql_real_escape_string(trim($trans));
 		//if(($gp<10) and ($trans==""))

@@ -1,10 +1,12 @@
 package mfs.ese.scotlandyard;
 
 import android.app.AlertDialog;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements HttpResp {
 
@@ -20,8 +23,10 @@ public class MainActivity extends Activity implements HttpResp {
     public static LocationByPlay mLocationByPlay;
 	public HttpResp resp = this;
     private Resources mResources;
+    SharedPreferences mSettings;
 
-	@Override
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         mResources = this.getResources();
@@ -38,6 +43,15 @@ public class MainActivity extends Activity implements HttpResp {
 			
 		mLocationByPlay = new LocationByPlay(this);
 
+        populateOnClick();//Buttons zuweisen
+
+        //Einstellungen laden
+        mSettings = PreferenceManager.getDefaultSharedPreferences(this);
+        String group= mSettings.getString("pref_group_id", "11");
+        ((TextView) findViewById(R.id.groupIdText)).setText(group);
+	}
+
+    private void populateOnClick() {
         final Switch _switch = (Switch) findViewById(R.id.switchLocation);
         _switch.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -48,47 +62,46 @@ public class MainActivity extends Activity implements HttpResp {
             else
                 mLocationByPlay.PauseTracking();}
         });
-		final Button button = (Button) findViewById(R.id.button1);//AutoTracking aktivieren
-		button.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+        final Button button = (Button) findViewById(R.id.button1);//AutoTracking aktivieren
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
-				int gpid = -1;
-				
-				try{
-				gpid = Integer
-						.parseInt(((EditText) findViewById(R.id.groupIdText))
-								.getText().toString());
-				}
-				catch(Exception e){
-					//Parse error
-					e.printStackTrace();
-				}
-				
-				if (gpid>=0 && gpid < 600){
-					
-					//Store gpid globally for Tracking
-					Vars.groupNumber = gpid;
-				
-					startTracking();	
-					showMap();
-				}
-				else if (gpid>=0 && gpid > 600){
-					MsgBox("Fehler", "Mister X Gruppen müssen manuell ihre Position senden!");
-				}
-				else{
-                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
-	        		((EditText)findViewById(R.id.groupIdText)).requestFocus();
-				}
+                int gpid = -1;
 
-			}
-		});
+                try{
+                gpid = Integer
+                        .parseInt(mSettings.getString("pref_group_id", "11"));
+                }
+                catch(Exception e){
+                    //Parse error
+                    e.printStackTrace();
+                }
 
-		final Button button2 = (Button) findViewById(R.id.button2);//Karte anzeigen
-		button2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				showMap();
-			}
-		});
+                if (gpid>=0 && gpid < 600){
+
+                    //Store gpid globally for Tracking
+                    Vars.groupNumber = gpid;
+
+                    startTracking();
+                    showMap();
+                }
+                else if (gpid>=0 && gpid > 600){
+                    MsgBox("Fehler", "Mister X Gruppen müssen manuell ihre Position senden!");
+                }
+                else{
+MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                    MainActivity.this.showSettings();
+                }
+
+            }
+        });
+
+        final Button button2 = (Button) findViewById(R.id.button2);//Karte anzeigen
+        button2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showMap();
+            }
+        });
 
         final Button sendCatch = (Button) findViewById(R.id.sendCatch);//Gefangen von absenden
         sendCatch.setOnClickListener(new View.OnClickListener(){
@@ -96,7 +109,7 @@ public class MainActivity extends Activity implements HttpResp {
             {
                 int gpid = -1;
                 try{
-                    gpid = Integer.parseInt(((EditText) findViewById(R.id.groupIdText)).getText().toString());
+                    gpid = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
                 }
                 catch(Exception e){
                     //Parse error
@@ -104,36 +117,36 @@ public class MainActivity extends Activity implements HttpResp {
                 }
                 if (gpid < 0){
                     MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
-                    ((EditText)findViewById(R.id.groupIdText)).requestFocus();
+                    MainActivity.this.showSettings();
                 }
                 else
                     Vars.SendLocation(gpid, "Gefangen von "+((EditText) findViewById(R.id.editCatch)).getText().toString(),"","", mLocationByPlay.getLocation(), resp);
             }
         });
-		
-		final Button submit = (Button) findViewById(R.id.submitPositionButton);//Position manuell senden
-		submit.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-                String comment = ((EditText) findViewById(R.id.commentText)).getText().toString();
-                String transportation = ((Spinner) findViewById(R.id.transportationSpinner)).getSelectedItem().toString();
-                String direction = ((EditText) findViewById(R.id.directionText)).getText().toString();
-                int gpid = -1;
-                try{
-                    gpid = Integer.parseInt(((EditText) findViewById(R.id.groupIdText)).getText().toString());
-                }
-                catch(Exception e){
-                    //Parse error
-                    e.printStackTrace();
-                }
-                if (gpid < 0){
-                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
-                    ((EditText)findViewById(R.id.groupIdText)).requestFocus();
-                }
-                else
-                    Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
-            }
-		});
-	}
+
+        final Button submit = (Button) findViewById(R.id.submitPositionButton);//Position manuell senden
+        submit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+String comment = ((EditText) findViewById(R.id.commentText)).getText().toString();
+String transportation = ((Spinner) findViewById(R.id.transportationSpinner)).getSelectedItem().toString();
+String direction = ((EditText) findViewById(R.id.directionText)).getText().toString();
+int gpid = -1;
+try{
+gpid = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
+}
+catch(Exception e){
+//Parse error
+e.printStackTrace();
+}
+if (gpid < 0){
+MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+MainActivity.this.showSettings();
+}
+else
+Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
+}
+        });
+    }
 
     //Karte zeigen
     public void showMap() {
@@ -146,6 +159,11 @@ public class MainActivity extends Activity implements HttpResp {
         startActivity(intent);
     }
 
+    public void showSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
+
 	public void startTracking() {
         mLocationByPlay.StartTracking();
 		if (!isTracking) {
@@ -154,7 +172,6 @@ public class MainActivity extends Activity implements HttpResp {
 		}
 		isTracking = true;
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -172,6 +189,9 @@ public class MainActivity extends Activity implements HttpResp {
                 return true;
             case R.id.action_interact:
                 showInteract();
+                return true;
+            case R.id.action_settings:
+                showSettings();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

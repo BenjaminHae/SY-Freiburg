@@ -242,7 +242,7 @@ public class MyMap extends Activity implements HttpResp{
     }
 
     public void showSettings() {
-        Intent intent = new Intent(this, SettingsActivity.class);//TODO vll. wieder zu Main machen
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 

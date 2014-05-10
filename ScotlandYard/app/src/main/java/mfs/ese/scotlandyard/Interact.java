@@ -3,8 +3,10 @@ package mfs.ese.scotlandyard;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
     public HttpResp resp = this;
     private Resources mResources;
     private boolean mDialogForX = false;
+    private SharedPreferences mSettings;
 
     public void refresh(String state)
     {
@@ -73,7 +76,7 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
     }
 
     public void showSettings() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
@@ -82,12 +85,16 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interact);
         mResources = this.getResources();
+        mSettings = PreferenceManager.getDefaultSharedPreferences(this);
 
         final Button buttonSend = (Button) findViewById(R.id.sendComment);//Kommentar absenden
         buttonSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText text = (EditText) findViewById(R.id.editComment);
-                Vars.SendLocation(0, text.getText().toString(), "", "", "", resp);//TODO gpid setzen
+                String text = ((EditText) findViewById(R.id.editComment)).getText().toString();
+                if (!text.trim().equals("")) {
+                    String group = mSettings.getString("pref_group_id", "11");
+                    Vars.SendLocation(Integer.parseInt(group), text, "", "", "", resp);
+                }
             }
         });
         final Button buttonMoreComments= (Button) findViewById(R.id.buttonMoreComments);//More Comments schauen
