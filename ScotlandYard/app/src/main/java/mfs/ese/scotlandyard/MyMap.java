@@ -206,7 +206,7 @@ public class MyMap extends Activity implements HttpResp{
 					alreadyInList = true;
                     LatLng oldPos = gp.position;
 					gp.position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
-                    if (oldPos != gp.position)
+                    if (!gp.position.equals(oldPos))
                         gp.prevPosition = oldPos;
 					gp.direction = groupVals[3];
 					gp.transportation = groupVals[4];
