@@ -26,7 +26,7 @@ class syDB{
 		//if(($gp<10) and ($trans==""))
 		//   die("Kein Fortbewegungsmittel angegeben");
 		$comm = mysql_real_escape_string(trim($comm));
-		$sql = "INSERT INTO scotland_yard VALUES ($gp,'$pos','$add','$dir','$trans','$comm', DEFAULT);";
+		$sql = "INSERT INTO scotland_yard VALUES ($gp,'$pos','$add','$dir','$trans','$comm', DEFAULT, DEFAULT);";
 		return mysql_query($sql, $this->connection) or die("Konnte den Datensatz nicht eintragen.");
 	}
 	public function GetGroupPosition($gp)
@@ -55,7 +55,7 @@ class syDB{
 	}
 	public function GetGroupIDs()
 	{
-		$sql = "SELECT DISTINCT scotland_yard.group_id FROM scotland_yard ORDER BY scotland_yard.group;";
+		$sql = "SELECT DISTINCT scotland_yard.group_id FROM scotland_yard ORDER BY scotland_yard.group_id;";
 		$query = mysql_query($sql, $this->connection);
 		while($r=mysql_fetch_array($query))
 		{
