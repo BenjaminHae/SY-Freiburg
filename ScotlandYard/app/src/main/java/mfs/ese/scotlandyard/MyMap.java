@@ -8,11 +8,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -20,12 +18,8 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -102,7 +96,7 @@ public class MyMap extends Activity implements HttpResp{
 
     public void UpdateMap() {
         timer = new Timer();
-        timer.schedule(new UpdateTask(), 0, Vars.UPDATING_INTERVAL);
+        timer.schedule(new UpdateTask(), 0, Vars.MAP_UPDATING_INTERVAL);
 	}
 
     class UpdateTask extends TimerTask {

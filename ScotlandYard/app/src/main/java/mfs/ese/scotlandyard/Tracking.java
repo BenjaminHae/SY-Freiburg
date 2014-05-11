@@ -20,30 +20,6 @@ public class Tracking extends IntentService implements HttpResp{
 		// TODO Auto-generated constructor stub
         mLocationByPlay = MainActivity.mLocationByPlay;
         mSettings = MainActivity.mSettings;
-        SharedPreferences.OnSharedPreferenceChangeListener listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                if (key.equals("pref_auto_submit_location"))//TODO funktioniert nicht, wird nie aufgerufen
-                {
-                    if(!prefs.getBoolean("pref_auto_submit_location", false))
-                    {
-                        if (timer!=null)
-                            timer.cancel();
-                    }
-                    else
-                        Reminder();
-                }
-                else if (key.equals("pref_submit_interval"))
-                {
-                    if (timer!= null)
-                    {
-                        timer.cancel();
-                        if (prefs.getBoolean("pref_auto_submit_location",false))
-                            Reminder();
-                    }
-                }
-            }
-        };
-        mSettings.registerOnSharedPreferenceChangeListener(listener);
 	}
 	
 	

@@ -15,11 +15,19 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
+import java.util.EventListener;
+
 /**
  * Created by Benjamin on 21.04.14.
  */
 public class LocationByPlay implements LocationListener,GooglePlayServicesClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener {
+    public interface IAsyncFetchListener extends EventListener {
+        void onConnect();
+    }
+
+    IAsyncFetchListener fetchListener = null;
+
     // A request to connect to Location Services
     private LocationRequest mLocationRequest;
 
@@ -46,9 +54,16 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
         mLocationRequest.setFastestInterval(LocationUtils.FAST_INTERVAL_CEILING_IN_MILLISECONDS);
 
         mLocationClient = new LocationClient(mMainActivity, this, this);
-        mLocationClient.connect();
     }
 
+    public void setConnectListener(IAsyncFetchListener listener) {
+        this.fetchListener = listener;
+    }
+
+    public void connect()
+    {
+        mLocationClient.connect();
+    }
     /**
      * Verify that Google Play services is available before making a request.
      *
@@ -64,7 +79,6 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
         if (ConnectionResult.SUCCESS == resultCode) {
             // In debug mode, log the status
             Log.d(LocationUtils.APPTAG, "Play available");
-
             // Continue
             return true;
             // Google Play services was not available for some reason
@@ -140,6 +154,8 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
     @Override
     public void onConnected(Bundle bundle) {
         startPeriodicUpdates();
+        if (this.fetchListener != null)
+            this.fetchListener.onConnect();
     }
 
     /*

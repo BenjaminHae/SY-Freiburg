@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,32 +25,52 @@ public class MainActivity extends Activity implements HttpResp {
 	public HttpResp resp = this;
     private Resources mResources;
     public static SharedPreferences mSettings;
+    private Intent mIntentTracking;
+    private SharedPreferences.OnSharedPreferenceChangeListener mSharedPreferenceChangeListener;
 
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
         mResources = this.getResources();
-		setContentView(R.layout.activity_main);
-		
-		Spinner spinner = (Spinner) findViewById(R.id.transportationSpinner);
-		// Create an ArrayAdapter using the string array and a default spinner layout
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-		        R.array.transportation_array, android.R.layout.simple_spinner_item);
-		// Specify the layout to use when the list of choices appears
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
-		spinner.setAdapter(adapter);
-			
-		mLocationByPlay = new LocationByPlay(this);
+        setContentView(R.layout.activity_main);
+
+        Spinner spinner = (Spinner) findViewById(R.id.transportationSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.transportation_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        mLocationByPlay = new LocationByPlay(this);
+        mLocationByPlay.setConnectListener(new LocationByPlay.IAsyncFetchListener() {
+            @Override
+            public void onConnect() {
+                MainActivity.this.playConnected();
+            }
+        });
 
         populateOnClick();//Buttons zuweisen
 
         //Einstellungen laden
         mSettings = PreferenceManager.getDefaultSharedPreferences(this);
-        String group= mSettings.getString("pref_group_id", "11");
+        mSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                Log.d("std", "SharedPreferenceChanged " + key);
+                if (key.equals("pref_auto_submit_location") || key.equals("pref_submit_interval"))
+                {
+                    Log.d("std", "SharedPreferenceChanged Tracking restart");
+                    stopTracking();
+                    startTracking();
+                }
+            }
+        };
+        mSettings.registerOnSharedPreferenceChangeListener(mSharedPreferenceChangeListener);
+        String group = mSettings.getString("pref_group_id", "11");
         ((TextView) findViewById(R.id.groupIdText)).setText(group);
-	}
+    }
 
     private void populateOnClick() {
         final Switch _switch = (Switch) findViewById(R.id.switchLocation);
@@ -152,13 +173,27 @@ public class MainActivity extends Activity implements HttpResp {
     }
 
 	public void startTracking() {
-        mLocationByPlay.StartTracking();
-		if (!isTracking) {
-			Intent intent = new Intent(this, Tracking.class);
-			startService(intent);
-		}
-		isTracking = true;
+        if (mSettings.getBoolean("pref_auto_submit_location",false)) {
+            mLocationByPlay.connect();
+            //weiter geht's in playConnected
+        }
 	}
+
+    public void playConnected() {
+        mLocationByPlay.StartTracking();
+        if (!isTracking) {
+            mIntentTracking = new Intent(this, Tracking.class);
+            startService(mIntentTracking);
+        }
+        isTracking = true;
+    }
+
+    public void stopTracking() {
+        if (mIntentTracking != null) {
+            stopService(mIntentTracking);//TODO klappt nicht, jetzt wird doppelt und dreifach übertragen
+        }
+        isTracking = false;
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
