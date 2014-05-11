@@ -12,6 +12,7 @@ TODO
  - Gruppe usw. persistent speichern
  - Route verfolgen auf dem Handy
  - Startanzeige in der Karte setzen
+ - Toasts verwenden
  
 Testen
 ====

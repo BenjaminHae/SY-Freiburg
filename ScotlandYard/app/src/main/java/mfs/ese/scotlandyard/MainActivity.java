@@ -58,12 +58,17 @@ public class MainActivity extends Activity implements HttpResp {
         mSettings = PreferenceManager.getDefaultSharedPreferences(this);
         mSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                Log.d("std", "SharedPreferenceChanged " + key);
+                Log.d("std", "SY: SharedPreferenceChanged " + key);
                 if (key.equals("pref_auto_submit_location") || key.equals("pref_submit_interval"))
                 {
-                    Log.d("std", "SharedPreferenceChanged Tracking restart");
+                    Log.d("std", "SY: SharedPreferenceChanged Tracking restart");
                     stopTracking();
                     startTracking();
+                }
+                if (key.equals("pref_group_id"))
+                {
+                    String group = mSettings.getString("pref_group_id", "11");
+                    ((TextView) findViewById(R.id.groupIdText)).setText(group);
                 }
             }
         };
@@ -174,6 +179,7 @@ public class MainActivity extends Activity implements HttpResp {
 
 	public void startTracking() {
         if (mSettings.getBoolean("pref_auto_submit_location",false)) {
+            Log.d("std","SY: Start Tracking");
             mLocationByPlay.connect();
             //weiter geht's in playConnected
         }
@@ -182,6 +188,7 @@ public class MainActivity extends Activity implements HttpResp {
     public void playConnected() {
         mLocationByPlay.StartTracking();
         if (!isTracking) {
+            Log.d("std","SY: Connected, Tracking runs");
             mIntentTracking = new Intent(this, Tracking.class);
             startService(mIntentTracking);
         }
@@ -190,6 +197,7 @@ public class MainActivity extends Activity implements HttpResp {
 
     public void stopTracking() {
         if (mIntentTracking != null) {
+            Log.d("std","SY: End Tracking");
             stopService(mIntentTracking);//TODO klappt nicht, jetzt wird doppelt und dreifach übertragen
         }
         isTracking = false;
