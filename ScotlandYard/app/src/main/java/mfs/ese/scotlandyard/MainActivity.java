@@ -1,5 +1,8 @@
 package mfs.ese.scotlandyard;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -20,13 +23,15 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements HttpResp {
 
-	private boolean isTracking=false;
     public static LocationByPlay mLocationByPlay;
-	public HttpResp resp = this;
-    private Resources mResources;
+    public HttpResp resp = this;
     public static SharedPreferences mSettings;
+    
+    private boolean isTracking=false;
+    private Resources mResources;
     private Intent mIntentTracking;
     private SharedPreferences.OnSharedPreferenceChangeListener mSharedPreferenceChangeListener;
+    private Timer mTimer;
 
 
     @Override
@@ -75,6 +80,7 @@ public class MainActivity extends Activity implements HttpResp {
         mSettings.registerOnSharedPreferenceChangeListener(mSharedPreferenceChangeListener);
         String group = mSettings.getString("pref_group_id", "11");
         ((TextView) findViewById(R.id.groupIdText)).setText(group);
+        startTracking();//Tracking in abhängigkeit von den Einstellungen setzen
     }
 
     private void populateOnClick() {
@@ -177,28 +183,53 @@ public class MainActivity extends Activity implements HttpResp {
         startActivity(intent);
     }
 
-	public void startTracking() {
+    public void startTracking() {
         if (mSettings.getBoolean("pref_auto_submit_location",false)) {
             Log.d("std","SY: Start Tracking");
             mLocationByPlay.connect();
             //weiter geht's in playConnected
         }
-	}
+    }
 
     public void playConnected() {
         mLocationByPlay.StartTracking();
         if (!isTracking) {
             Log.d("std","SY: Connected, Tracking runs");
-            mIntentTracking = new Intent(this, Tracking.class);
-            startService(mIntentTracking);
+            if (mTimer==null)
+	      mTimer = new Timer();
+	    else
+	      mTimer.cancel();
+	    mTimer.schedule(new TrackingTask(this), 0, Integer.parseInt(mSettings.getString("pref_submit_interval", "30")) * 1000);
         }
         isTracking = true;
     }
+    
+    class TrackingTask extends TimerTask {
+        HttpResp resp = null;
+
+        public TrackingTask(HttpResp resp) {
+            this.resp = resp;
+        }
+
+        public void run() {
+            Log.d("std", "SY: Tracking");
+
+            //Get current position
+            Location location = mLocationByPlay.getLocation();
+
+            if (location != null) {
+                //Send position
+                Http con = new Http("http://www.benjaminh.de/sy/ins.php", resp);
+                con.setPost(true);
+                con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude());
+            }
+        }
+    }
 
     public void stopTracking() {
-        if (mIntentTracking != null) {
+        if (mTimer != null) {
             Log.d("std","SY: End Tracking");
-            stopService(mIntentTracking);//TODO klappt nicht, jetzt wird doppelt und dreifach übertragen
+            mTimer.cancel();
         }
         isTracking = false;
     }
