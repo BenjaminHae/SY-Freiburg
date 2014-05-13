@@ -65,6 +65,12 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
         if (!mLocationClient.isConnected())
             mLocationClient.connect();
     }
+
+    public void disconnect()
+    {
+        if (mLocationClient.isConnected())
+            mLocationClient.disconnect();
+    }
     /**
      * Verify that Google Play services is available before making a request.
      *

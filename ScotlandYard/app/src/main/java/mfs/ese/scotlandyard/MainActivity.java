@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements HttpResp {
                 {
                     Log.d("std", "SY: SharedPreferenceChanged Tracking restart");
                     stopTracking();
-                    startTracking();
+                    setTracking();
                 }
                 if (key.equals("pref_group_id"))
                 {
@@ -81,7 +81,7 @@ public class MainActivity extends Activity implements HttpResp {
         };
         mSettings.registerOnSharedPreferenceChangeListener(mSharedPreferenceChangeListener);
         refreshView();
-        startTracking();//Tracking in abhängigkeit von den Einstellungen setzen
+        setTracking();//Tracking in abhängigkeit von den Einstellungen setzen
     }
 
     private void refreshView()
@@ -115,7 +115,7 @@ public class MainActivity extends Activity implements HttpResp {
                 }
 
                 if (gpid >= 0 && gpid < 600) {
-                    startTracking();
+                    setTracking();
                     showMap();
                 } else if (gpid >= 0 && gpid > 600) {
                     MsgBox("Fehler", "Mister X Gruppen müssen manuell ihre Position senden!");
@@ -190,12 +190,14 @@ public class MainActivity extends Activity implements HttpResp {
         startActivity(intent);
     }
 
-    public void startTracking() {
+    public void setTracking() {
         if (mSettings.getBoolean("pref_auto_submit_location",false)) {
             Log.d("std","SY: Start Tracking");
             mLocationByPlay.connect();
             //weiter geht's in playConnected
         }
+        else
+            mLocationByPlay.disconnect();
     }
 
     public void playConnected() {
