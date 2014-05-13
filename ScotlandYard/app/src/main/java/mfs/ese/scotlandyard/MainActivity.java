@@ -80,9 +80,14 @@ public class MainActivity extends Activity implements HttpResp {
             }
         };
         mSettings.registerOnSharedPreferenceChangeListener(mSharedPreferenceChangeListener);
+        refreshView();
+        startTracking();//Tracking in abhängigkeit von den Einstellungen setzen
+    }
+
+    private void refreshView()
+    {
         String group = mSettings.getString("pref_group_id", "11");
         ((TextView) findViewById(R.id.groupIdText)).setText(group);
-        startTracking();//Tracking in abhängigkeit von den Einstellungen setzen
     }
 
     private void populateOnClick() {
