@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -72,11 +73,7 @@ public class MainActivity extends Activity implements HttpResp {
                     stopTracking();
                     setTracking();
                 }
-                if (key.equals("pref_group_id"))
-                {
-                    String group = mSettings.getString("pref_group_id", "11");
-                    ((TextView) findViewById(R.id.groupIdText)).setText(group);
-                }
+                refreshView();
             }
         };
         mSettings.registerOnSharedPreferenceChangeListener(mSharedPreferenceChangeListener);
@@ -84,56 +81,26 @@ public class MainActivity extends Activity implements HttpResp {
         setTracking();//Tracking in abhängigkeit von den Einstellungen setzen
     }
 
-    private void refreshView()
-    {
+    private void refreshView() {
         String group = mSettings.getString("pref_group_id", "11");
         ((TextView) findViewById(R.id.groupIdText)).setText(group);
+        boolean tracking = mSettings.getBoolean("pref_auto_submit_location", false);
+        ((Switch) findViewById(R.id.switchLocation)).setChecked(tracking);
+        showTrackingInfo();
+        //Tracking anzeigen
+        if (Integer.parseInt(group) > 690)//MrX
+        {
+            ((RelativeLayout) findViewById(R.id.viewMrX)).setVisibility(View.VISIBLE);
+        } else {
+            ((RelativeLayout) findViewById(R.id.viewMrX)).setVisibility(View.INVISIBLE);
+        }
+    }
+    private void showTrackingInfo()
+    {
+        //ToDo Infos übers Tracking anzeigen, z.b. Fehler
     }
 
     private void populateOnClick() {
-        final Switch _switch = (Switch) findViewById(R.id.switchLocation);
-        _switch.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (_switch.isChecked()) {
-                    mLocationByPlay.StartTracking();
-                } else
-                    mLocationByPlay.PauseTracking();
-            }
-        });
-        final Button button = (Button) findViewById(R.id.button1);//AutoTracking aktivieren //TODO mit Settings verbinden
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                int gpid = -1;
-
-                try {
-                    gpid = Integer
-                            .parseInt(mSettings.getString("pref_group_id", "11"));
-                } catch (Exception e) {
-                    //Parse error
-                    e.printStackTrace();
-                }
-
-                if (gpid >= 0 && gpid < 600) {
-                    setTracking();
-                    showMap();
-                } else if (gpid >= 0 && gpid > 600) {
-                    MsgBox("Fehler", "Mister X Gruppen müssen manuell ihre Position senden!");
-                } else {
-                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
-                    MainActivity.this.showSettings();
-                }
-
-            }
-        });
-
-        final Button button2 = (Button) findViewById(R.id.button2);//Karte anzeigen
-        button2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showMap();
-            }
-        });
-
         final Button sendCatch = (Button) findViewById(R.id.sendCatch);//Gefangen von absenden
         sendCatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
