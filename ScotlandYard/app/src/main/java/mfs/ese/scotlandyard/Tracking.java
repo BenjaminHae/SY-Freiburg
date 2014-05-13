@@ -61,7 +61,7 @@ public class Tracking extends IntentService implements HttpResp {
     public void onDestroy() {
         super.onDestroy();
         /*Log.d("std","SY: Timer stopped");//Offensichtlich der falsche Ort
-        if (timer != null) {
+        if (timer != null) {//TODO irgendwo aufrufen
             timer.cancel();
         }*/
     }

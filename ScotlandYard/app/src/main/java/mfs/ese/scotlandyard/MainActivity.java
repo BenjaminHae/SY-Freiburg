@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.location.Location;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements HttpResp {
 
@@ -194,12 +196,11 @@ public class MainActivity extends Activity implements HttpResp {
     public void playConnected() {
         mLocationByPlay.StartTracking();
         if (!isTracking) {
-            Log.d("std","SY: Connected, Tracking runs");
-            if (mTimer==null)
-	      mTimer = new Timer();
-	    else
-	      mTimer.cancel();
-	    mTimer.schedule(new TrackingTask(this), 0, Integer.parseInt(mSettings.getString("pref_submit_interval", "30")) * 1000);
+            Log.d("std", "SY: Connected, Tracking runs");
+            if (mTimer != null)
+                mTimer.cancel();
+            mTimer = new Timer();
+            mTimer.schedule(new TrackingTask(this), 0, Integer.parseInt(mSettings.getString("pref_submit_interval", "30")) * 1000);
         }
         isTracking = true;
     }
@@ -263,9 +264,9 @@ public class MainActivity extends Activity implements HttpResp {
 	public void response(String url, String param, String resp) {
         if (url.equals(mResources.getString(R.string.URL_ins))) {
             if (resp.equals("OK")) {
-                MsgBox("OK", "Position erfolgreich übertragen!");
+                Toast.makeText(getApplicationContext(), "Übertragung erfolgreich", Toast.LENGTH_SHORT).show();
             } else {
-                MsgBox("Fehler", "Es gab ein Problem bei der Übertragung: " + resp);
+                Toast.makeText(getApplicationContext(), "Es gab ein Problem bei der Übertragung: " + resp, Toast.LENGTH_LONG).show();
             }
         } else if (url.equals(mResources.getString(R.string.URL_ajax))) {
             if (param.contains("exX"))
