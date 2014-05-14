@@ -160,7 +160,8 @@ public class MainActivity extends Activity implements HttpResp {
 
     public void setTracking() {
         if (mSettings.getBoolean("pref_auto_submit_location",false)) {
-            Log.d("std","SY: Start Tracking");
+            Toast.makeText(getApplicationContext(), "Verbinde", Toast.LENGTH_SHORT).show();
+            Log.d("std","SY: Start Tracking, Connecting");
             mLocationByPlay.connect();
             //weiter geht's in playConnected
         }
@@ -171,6 +172,7 @@ public class MainActivity extends Activity implements HttpResp {
     public void playConnected() {
         mLocationByPlay.StartTracking();
         if (!isTracking) {
+            Toast.makeText(getApplicationContext(),"Verbunden, Tracking läuft", Toast.LENGTH_SHORT).show();
             Log.d("std", "SY: Connected, Tracking runs");
             if (mTimer != null)
                 mTimer.cancel();
@@ -206,6 +208,7 @@ public class MainActivity extends Activity implements HttpResp {
     public void stopTracking() {
         if (mTimer != null) {
             Log.d("std","SY: End Tracking");
+            Toast.makeText(getApplicationContext(),"Tracking beendet", Toast.LENGTH_SHORT).show();
             mTimer.cancel();
         }
         isTracking = false;
