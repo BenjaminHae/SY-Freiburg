@@ -44,7 +44,7 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
             for (String group : sComments) {
                 if (!group.trim().equals("")) {
                     String[] groupVals = group.split("\r\n");
-                    outputText += generateCommentHTML(groupVals[0], groupVals[6], groupVals[5]) + "<br/>";
+                    outputText += generateCommentHTML(groupVals[0], groupVals[6], groupVals[5], groupVals[2]) + "<br/>";
                 }
             }
             ((TextView) findViewById(R.id.commentText)).setText(Html.fromHtml(outputText));
@@ -64,8 +64,9 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
         }
     }
 
-    public String generateCommentHTML(String no, String Time, String Comment) {
-        return "<b>Gruppe " + no + "</b> um <em>" + Time.split(" ")[1] + "</em><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + Comment;
+    public String generateCommentHTML(String no, String Time, String Comment, String Address) {
+        String result = "<b>Gruppe " + no + "</b> um <em>" + Time.split(" ")[1] + "</em>"+" in "+Address+"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + Comment;
+        return result;
     }
 
     //Karte zeigen
