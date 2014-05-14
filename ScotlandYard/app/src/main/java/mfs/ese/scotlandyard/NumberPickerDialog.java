@@ -62,7 +62,7 @@ public class NumberPickerDialog extends DialogFragment {
                 });
         NumberPicker nb = (NumberPicker) mView.findViewById(R.id.numberPicker);
         nb.setMinValue(1);
-        nb.setMaxValue(20);
+        nb.setMaxValue(30);
         return builder.create();
     }
 

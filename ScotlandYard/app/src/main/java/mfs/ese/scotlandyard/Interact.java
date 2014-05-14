@@ -20,7 +20,6 @@ import android.widget.TextView;
 public class Interact extends Activity implements HttpResp, NumberPickerDialog.NumberPickerDialogListener{
     public HttpResp resp = this;
     private Resources mResources;
-    private boolean mDialogForX = false;
     private SharedPreferences mSettings;
 
     public void refresh(String state)
@@ -130,14 +129,8 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
                 refresh("");
                 return true;
             case R.id.action_CommentsBy:
-                mDialogForX = false;
                 DialogFragment newFragment = new NumberPickerDialog();
                 newFragment.show(getFragmentManager(), "missiles");
-                return true;
-            case R.id.action_CommentsBy_X:
-                mDialogForX = true;
-                DialogFragment newXFragment = new NumberPickerDialog();
-                newXFragment.show(getFragmentManager(), "missiles");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -151,8 +144,6 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
         // User touched the dialog's positive button
         //(TextView) findViewById(R.id.commentText);
         int group = dialog.getResult();
-        if (!mDialogForX)
-            group+=10;
         refresh("commentsBy&group="+Integer.toString(group));
     }
 

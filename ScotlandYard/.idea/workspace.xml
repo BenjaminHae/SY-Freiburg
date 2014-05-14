@@ -56,12 +56,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: mfs.ese.scotlandyard" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcfc37fa-b5ab-4568-a478-1822f764bef1" name="Default" comment="Kommentare senden ist möglich">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values/ids.xml" />
+    <list default="true" id="dcfc37fa-b5ab-4568-a478-1822f764bef1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java" afterPath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/LocationByPlay.java" afterPath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/LocationByPlay.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/NumberPickerDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/NumberPickerDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/interact.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/interact.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ScotlandYard.iws" />
@@ -194,8 +190,8 @@
       <file leaf-file-name="Interact.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.587396" vertical-offset="0" max-vertical-offset="2431">
-              <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -912,8 +908,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/LocationByPlay.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/interact.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/NumberPickerDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java" />
       </list>
     </option>
   </component>
@@ -1340,7 +1336,15 @@
       <created>1400013738808</created>
       <updated>1400013738808</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="LocationByPlay Fehler korrigiert">
+      <created>1400081785532</created>
+      <updated>1400081785532</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Kommentare von MisterX und anderen zusammengeführt">
+      <created>1400081812617</created>
+      <updated>1400081812618</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1424,7 +1428,9 @@
     <MESSAGE value="Einstellungen wirken auf das Tracking" />
     <MESSAGE value="Kommentare senden ist möglich" />
     <MESSAGE value="Main Activity restrukturiert und unterscheide Anzeige nach MrX" />
-    <option name="LAST_COMMIT_MESSAGE" value="Main Activity restrukturiert und unterscheide Anzeige nach MrX" />
+    <MESSAGE value="LocationByPlay Fehler korrigiert" />
+    <MESSAGE value="Kommentare von MisterX und anderen zusammengeführt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kommentare von MisterX und anderen zusammengeführt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1837,8 +1843,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.587396" vertical-offset="0" max-vertical-offset="2431">
-          <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
