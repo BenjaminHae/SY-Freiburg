@@ -98,6 +98,7 @@ public class MainActivity extends Activity implements HttpResp {
     private void showTrackingInfo()
     {
         //ToDo Infos übers Tracking anzeigen, z.b. Fehler
+        //TODO mLocationByPlay.getAddress(); lastPosition, lastUpdate
     }
 
     private void populateOnClick() {
