@@ -192,12 +192,13 @@ public class MainActivity extends Activity implements HttpResp {
 
             //Get current position
             Location location = mLocationByPlay.getLocation();
+            String address = mLocationByPlay.getAddress(location, getApplicationContext());
 
             if (location != null) {
                 //Send position
                 Http con = new Http("http://www.benjaminh.de/sy/ins.php", resp);
                 con.setPost(true);
-                con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude());
+                con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "address="+address);
             }
         }
     }

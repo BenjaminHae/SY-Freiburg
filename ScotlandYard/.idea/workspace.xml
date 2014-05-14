@@ -57,7 +57,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dcfc37fa-b5ab-4568-a478-1822f764bef1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java" afterPath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ScotlandYard.iws" />
@@ -165,11 +165,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3859" max-vertical-offset="4573">
-              <caret line="245" column="73" selection-start-line="245" selection-start-column="73" selection-end-line="245" selection-end-column="73" />
+            <state vertical-scroll-proportion="0.78018016" vertical-offset="2712" max-vertical-offset="4590">
+              <caret line="185" column="5" selection-start-line="185" selection-start-column="5" selection-end-line="185" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2030#2207#0" expanded="true" />
@@ -180,19 +180,9 @@
                 <element signature="e#4883#4884#0" expanded="true" />
                 <element signature="e#5037#6022#0" expanded="true" />
                 <element signature="e#6011#6012#0" expanded="true" />
-                <element signature="e#8890#8928#0" expanded="true" />
-                <element signature="e#9280#9319#0" expanded="true" />
+                <element signature="e#9002#9040#0" expanded="true" />
+                <element signature="e#9392#9431#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Interact.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -222,6 +212,11 @@
     <option name="KEY_ALIAS" value="benjamins key" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="BenjaminHae" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GradleLocalSettings">
@@ -905,11 +900,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Vars.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Tracking.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/LocationByPlay.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/interact.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/NumberPickerDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" />
       </list>
     </option>
   </component>
@@ -1344,7 +1339,11 @@
       <created>1400081812617</created>
       <updated>1400081812618</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Kommentare von MisterX und anderen zusammengeführt">
+      <created>1400081850432</created>
+      <updated>1400081850432</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1385,7 +1384,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.49938875" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5452323" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32911393" sideWeight="0.5452323" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.45476773" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19865526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1813,26 +1812,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3825" max-vertical-offset="4539">
-          <caret line="245" column="73" selection-start-line="245" selection-start-column="73" selection-end-line="245" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2030#2207#0" expanded="true" />
-            <element signature="e#2196#2197#0" expanded="true" />
-            <element signature="e#2402#2960#0" expanded="true" />
-            <element signature="e#2949#2950#0" expanded="true" />
-            <element signature="e#4160#4894#0" expanded="true" />
-            <element signature="e#4883#4884#0" expanded="true" />
-            <element signature="e#5037#6022#0" expanded="true" />
-            <element signature="e#6011#6012#0" expanded="true" />
-            <element signature="e#8890#8928#0" expanded="true" />
-            <element signature="e#9280#9319#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/NumberPickerDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0309156" vertical-offset="0" max-vertical-offset="1411">
@@ -1843,9 +1822,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2397">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.41379312" vertical-offset="1556" max-vertical-offset="2397">
+          <caret line="132" column="67" selection-start-line="132" selection-start-column="67" selection-end-line="132" selection-end-column="67" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.78018016" vertical-offset="2712" max-vertical-offset="4590">
+          <caret line="185" column="5" selection-start-line="185" selection-start-column="5" selection-end-line="185" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2030#2207#0" expanded="true" />
+            <element signature="e#2196#2197#0" expanded="true" />
+            <element signature="e#2402#2960#0" expanded="true" />
+            <element signature="e#2949#2950#0" expanded="true" />
+            <element signature="e#4160#4894#0" expanded="true" />
+            <element signature="e#4883#4884#0" expanded="true" />
+            <element signature="e#5037#6022#0" expanded="true" />
+            <element signature="e#6011#6012#0" expanded="true" />
+            <element signature="e#9002#9040#0" expanded="true" />
+            <element signature="e#9392#9431#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
