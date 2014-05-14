@@ -2,7 +2,10 @@ package mfs.ese.scotlandyard;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.IntentSender;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +18,10 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
+import java.io.IOException;
 import java.util.EventListener;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Benjamin on 21.04.14.
@@ -248,10 +254,9 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
          * location, or an empty string if no address can be found,
          * or an error message
          */
-        @Override
-        public String geAddress(Location params) {
+        public String getAddress(Location params, Context context) {
             Geocoder geocoder =
-                    new Geocoder(mContext, Locale.getDefault());//TODO context importieren
+                    new Geocoder(context, Locale.getDefault());//TODO context importieren
             // Get the current location from the input parameter list
             Location loc = params;
             // Create a list to contain the result address
