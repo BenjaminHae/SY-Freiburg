@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +36,9 @@ public class MainActivity extends Activity implements HttpResp {
     private Intent mIntentTracking;
     private SharedPreferences.OnSharedPreferenceChangeListener mSharedPreferenceChangeListener;
     private Timer mTimer;
-
+    private String mLastAddress;
+    private String mLastSentAddress;
+    private Time mLastSentTime;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,8 @@ public class MainActivity extends Activity implements HttpResp {
     }
     private void showTrackingInfo()
     {
+        if ((mLastSentTime!= null) && (mLastSentAddress != null))
+            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText("letzte gesendete Position ("+mLastSentTime.toString()+"): "+mLastSentAddress);
         //ToDo Infos übers Tracking anzeigen, z.b. Fehler
         //TODO mLocationByPlay.getAddress(); lastPosition, lastUpdate
     }
@@ -194,13 +199,15 @@ public class MainActivity extends Activity implements HttpResp {
 
             //Get current position
             Location location = mLocationByPlay.getLocation();
-            String address = mLocationByPlay.getAddress(location, getApplicationContext());
+            //ToDO Variablen setzen
+            //mLastSentAddress = mLocationByPlay.getAddress(location, getApplicationContext());
+            //mLastSentTime.setToNow();
 
             if (location != null) {
                 //Send position
                 Http con = new Http("http://www.benjaminh.de/sy/ins.php", resp);
                 con.setPost(true);
-                con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "address="+address);
+                con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "address="+mLastSentAddress);
             }
         }
     }
@@ -244,6 +251,7 @@ public class MainActivity extends Activity implements HttpResp {
         if (url.equals(mResources.getString(R.string.URL_ins))) {
             if (resp.equals("OK")) {
                 Toast.makeText(getApplicationContext(), "Übertragung erfolgreich", Toast.LENGTH_SHORT).show();
+                showTrackingInfo();
             } else {
                 Toast.makeText(getApplicationContext(), "Es gab ein Problem bei der Übertragung: " + resp, Toast.LENGTH_LONG).show();
             }

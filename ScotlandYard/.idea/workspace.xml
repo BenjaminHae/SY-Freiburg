@@ -56,8 +56,11 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: mfs.ese.scotlandyard" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dcfc37fa-b5ab-4568-a478-1822f764bef1" name="Default" comment="Main zeigt T">
+    <list default="true" id="dcfc37fa-b5ab-4568-a478-1822f764bef1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README.md" afterPath="$PROJECT_DIR$/../README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/ids.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/ids.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ScotlandYard.iws" />
@@ -168,22 +171,55 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4288425" vertical-offset="3344" max-vertical-offset="4641">
-              <caret line="212" column="9" selection-start-line="212" selection-start-column="9" selection-end-line="212" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.23929961" vertical-offset="3515" max-vertical-offset="4114">
+              <caret line="255" column="43" selection-start-line="255" selection-start-column="43" selection-end-line="255" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2030#2207#0" expanded="true" />
-                <element signature="e#2196#2197#0" expanded="true" />
-                <element signature="e#2402#2960#0" expanded="true" />
-                <element signature="e#2949#2950#0" expanded="true" />
-                <element signature="e#4160#4894#0" expanded="true" />
-                <element signature="e#4883#4884#0" expanded="true" />
-                <element signature="e#5037#6022#0" expanded="true" />
-                <element signature="e#6011#6012#0" expanded="true" />
-                <element signature="e#9313#9351#0" expanded="true" />
-                <element signature="e#9703#9742#0" expanded="true" />
+                <element signature="e#2164#2341#0" expanded="true" />
+                <element signature="e#2330#2331#0" expanded="true" />
+                <element signature="e#2536#3094#0" expanded="true" />
+                <element signature="e#3083#3084#0" expanded="true" />
+                <element signature="method#populateOnClick#0;class#MainActivity#0" expanded="false" />
+                <element signature="e#4517#5251#0" expanded="true" />
+                <element signature="e#5240#5241#0" expanded="true" />
+                <element signature="e#5394#6379#0" expanded="true" />
+                <element signature="e#6368#6369#0" expanded="true" />
+                <element signature="e#9759#9797#0" expanded="true" />
+                <element signature="e#10185#10224#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.37037" vertical-offset="713" max-vertical-offset="1258">
+              <caret line="182" column="30" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="56" />
+              <folding>
+                <element signature="e#408#441#0" expanded="true" />
+                <element signature="e#466#501#0" expanded="true" />
+                <element signature="e#527#562#0" expanded="true" />
+                <element signature="e#586#619#0" expanded="true" />
+                <element signature="tag#Switch#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#TextView#1;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#Button#0;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#TextView#0;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#TextView#1;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#EditText#0;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#EditText#1;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#TextView#2;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#EditText#2;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="e#5680#5704#0" expanded="true" />
+                <element signature="tag#Spinner#0;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#TextView#3;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+                <element signature="tag#TextView#4;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -886,11 +922,11 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_interact.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Vars.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Tracking.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/LocationByPlay.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/interact.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/NumberPickerDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/Interact.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java" />
       </list>
     </option>
@@ -1037,6 +1073,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="menu" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ScotlandYard" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ScotlandYard" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1338,7 +1404,11 @@
       <created>1400083186718</created>
       <updated>1400083186718</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Einige Toasts werden angezeigt #9">
+      <created>1400083507318</created>
+      <updated>1400083507318</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1379,7 +1449,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32911393" sideWeight="0.49938875" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32911393" sideWeight="0.5452323" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32911393" sideWeight="0.5452323" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32911393" sideWeight="0.45476773" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19865526" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1426,7 +1496,8 @@
     <MESSAGE value="Kommentare von MisterX und anderen zusammengeführt" />
     <MESSAGE value="Adresse wird mit übertragen&#10;closes #6" />
     <MESSAGE value="Adresse wird in Kommentaren angezeigt&#10;closes #7" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adresse wird in Kommentaren angezeigt&#10;closes #7" />
+    <MESSAGE value="Einige Toasts werden angezeigt #9" />
+    <option name="LAST_COMMIT_MESSAGE" value="Einige Toasts werden angezeigt #9" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1651,17 +1722,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_dialog_number.xml">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="2023">
@@ -1702,14 +1762,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
           <caret line="13" column="19" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09189189" vertical-offset="0" max-vertical-offset="555">
-          <caret line="3" column="41" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1788,16 +1840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/interact.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6738739" vertical-offset="0" max-vertical-offset="555">
-          <caret line="22" column="59" selection-start-line="22" selection-start-column="59" selection-end-line="22" selection-end-column="59" />
-          <folding>
-            <element signature="e#1014#1051#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/NumberPickerDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0309156" vertical-offset="0" max-vertical-offset="1411">
@@ -1816,10 +1858,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/interact.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+          <caret line="22" column="59" selection-start-line="22" selection-start-column="59" selection-end-line="22" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18378378" vertical-offset="0" max-vertical-offset="555">
+          <caret line="6" column="49" selection-start-line="6" selection-start-column="49" selection-end-line="6" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_dialog_number.xml">
       <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="2941">
-          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1827,22 +1885,53 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.37037" vertical-offset="713" max-vertical-offset="1258">
+          <caret line="182" column="30" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="56" />
+          <folding>
+            <element signature="e#408#441#0" expanded="true" />
+            <element signature="e#466#501#0" expanded="true" />
+            <element signature="e#527#562#0" expanded="true" />
+            <element signature="e#586#619#0" expanded="true" />
+            <element signature="tag#Switch#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#TextView#1;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#Button#0;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#TextView#0;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#TextView#1;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#EditText#0;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#EditText#1;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#TextView#2;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#EditText#2;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="e#5680#5704#0" expanded="true" />
+            <element signature="tag#Spinner#0;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#TextView#3;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+            <element signature="tag#TextView#4;tag#RelativeLayout#0;tag#RelativeLayout#0;tag#ScrollView#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mfs/ese/scotlandyard/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4288425" vertical-offset="3344" max-vertical-offset="4641">
-          <caret line="212" column="9" selection-start-line="212" selection-start-column="9" selection-end-line="212" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.23929961" vertical-offset="3515" max-vertical-offset="4114">
+          <caret line="255" column="43" selection-start-line="255" selection-start-column="43" selection-end-line="255" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2030#2207#0" expanded="true" />
-            <element signature="e#2196#2197#0" expanded="true" />
-            <element signature="e#2402#2960#0" expanded="true" />
-            <element signature="e#2949#2950#0" expanded="true" />
-            <element signature="e#4160#4894#0" expanded="true" />
-            <element signature="e#4883#4884#0" expanded="true" />
-            <element signature="e#5037#6022#0" expanded="true" />
-            <element signature="e#6011#6012#0" expanded="true" />
-            <element signature="e#9313#9351#0" expanded="true" />
-            <element signature="e#9703#9742#0" expanded="true" />
+            <element signature="e#2164#2341#0" expanded="true" />
+            <element signature="e#2330#2331#0" expanded="true" />
+            <element signature="e#2536#3094#0" expanded="true" />
+            <element signature="e#3083#3084#0" expanded="true" />
+            <element signature="method#populateOnClick#0;class#MainActivity#0" expanded="false" />
+            <element signature="e#4517#5251#0" expanded="true" />
+            <element signature="e#5240#5241#0" expanded="true" />
+            <element signature="e#5394#6379#0" expanded="true" />
+            <element signature="e#6368#6369#0" expanded="true" />
+            <element signature="e#9759#9797#0" expanded="true" />
+            <element signature="e#10185#10224#0" expanded="true" />
           </folding>
         </state>
       </provider>

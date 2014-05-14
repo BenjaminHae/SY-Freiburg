@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="viewMrX" type="id" />
+    <item name="textViewLastSentLocation" type="id" />
+    <item name="textViewLastKnownLocation" type="id" />
 </resources>
