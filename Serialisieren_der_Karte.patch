@@ -1,0 +1,176 @@
+Index: app/src/main/java/mfs/ese/scotlandyard/MyMap.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/mfs/ese/scotlandyard/MyMap.java	(date 1399055054000)
++++ app/src/main/java/mfs/ese/scotlandyard/MyMap.java	(revision )
+@@ -39,57 +39,66 @@
+ 	public Activity act = this;
+ 	
+ 	boolean isUpdating=false;
+-	private List<SYGroup> groups = new ArrayList<SYGroup>();
++	private ArrayList<SYGroup> groups = new ArrayList<SYGroup>();
+ 	
+ 	class SYGroup implements Serializable {
+ 		public int groupNumber;
+-		public LatLng position;
+-        public LatLng prevPosition;
++        public String position;
++        public String prevPosition;
+ 		public String comment;
+ 		public String timestamp;
+ 		public String direction;
+ 		public String transportation;
+-		public Marker marker;
++		public transient Marker marker;
+         public Polyline line;
+ 		public boolean isXGroup;
+ 		
+ 		
+-		public SYGroup(String[] groupVals, boolean misterx){
++		public SYGroup(String[] groupVals, boolean misterx) {
+-			groupNumber = Integer.parseInt(groupVals[0]);
++            groupNumber = Integer.parseInt(groupVals[0]);
+-			position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
++            position = groupVals[1];//new LatLng(Double.parseDouble(groupVals[1].split(",")[0]), Double.parseDouble(groupVals[1].split(",")[1]));
+             prevPosition = position;//keine Alte Position übergeben, also die gleiche nehmen
+-			isXGroup = misterx;
+-			direction = groupVals[3];
+-			transportation = groupVals[4];
+-			comment = groupVals[5];
++            isXGroup = misterx;
++            direction = groupVals[3];
++            transportation = groupVals[4];
++            comment = groupVals[5];
+-			timestamp = groupVals[6].substring(11,16); //Nur Uhrzeit
++            timestamp = groupVals[6].substring(11, 16); //Nur Uhrzeit
+-		}	
++        }
+ 	}
+ 	
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+-        groups = (List<SYGroup>) savedInstanceState.getSerializable("group_positions");
++        if (savedInstanceState!=null) {
++            //groups = (ArrayList<SYGroup>) savedInstanceState.getSerializable("group_positions");
++            //Log.d("std","groups deserialized");
++        }
+         setContentView(R.layout.activity_map);
+         if (!isUpdating) {
+ 	      //Get current position
+-		    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
++		    /*LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+ 		    Criteria criteria = new Criteria();
+ 		    String provider = locationManager.getBestProvider(criteria, false);
+ 		    Location location = locationManager.getLastKnownLocation(provider);
+ 		    
+-		    if (location != null){
++		    if (location != null){*/
++
+-		    	GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
++            GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+-		        CameraPosition cameraPosition = new CameraPosition.Builder().target(
++            mMap.setMyLocationEnabled(true);
++            mMap.getUiSettings().setMyLocationButtonEnabled(true);
++		        /*CameraPosition cameraPosition = new CameraPosition.Builder().target(
+ 		                new LatLng(location.getLatitude(), location.getLongitude())).zoom(12).build();
+-		 
+ 		        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+-		    }
++		    }*/
+ 
+             DrawGroups();
+         	UpdateMap();
+ 		}
++        else
++        {
++            Log.d("std", " already updating");
++        }
+-		isUpdating = true;
++        isUpdating = true;
+         
+     }
+     
+@@ -128,21 +137,21 @@
+                         for (SYGroup gp : groups) {
+                             if (gp.marker != null) {
+                                 Log.d("std", "Updating existing marker");
+-                                gp.marker.setPosition(gp.position);
++                                gp.marker.setPosition(new LatLng(Double.parseDouble(gp.position.split(",")[0]), Double.parseDouble(gp.position.split(",")[1])));
+                             } else {
+                                 Log.d("std", "Creating new marker");
+                                 float color = BitmapDescriptorFactory.HUE_AZURE;
+                                 if (gp.isXGroup) color = BitmapDescriptorFactory.HUE_RED;
+                                 if (gp.groupNumber < 10) {
+                                     gp.marker = mMap.addMarker(new MarkerOptions()
+-                                            .position(gp.position)
++                                            .position(new LatLng(Double.parseDouble(gp.position.split(",")[0]), Double.parseDouble(gp.position.split(",")[1])))
+                                             .flat(true) //necessary for rotation
+                                             .icon(BitmapDescriptorFactory.defaultMarker(color))
+                                             .title("Gruppe " + gp.groupNumber + " - " + gp.transportation + " - " + gp.direction)
+                                             .snippet(gp.comment + " - " + gp.timestamp));
+                                 } else {
+                                     gp.marker = mMap.addMarker(new MarkerOptions()
+-                                            .position(gp.position)
++                                            .position(new LatLng(Double.parseDouble(gp.position.split(",")[0]), Double.parseDouble(gp.position.split(",")[1])))
+                                             .flat(true) //necessary for rotation
+                                             .icon(BitmapDescriptorFactory.defaultMarker(color))
+                                             .title("Gruppe " + gp.groupNumber)
+@@ -153,13 +162,13 @@
+                                 if (gp.line != null) {
+                                     Log.d("std", "Updating existing link");
+                                     List<LatLng> pts = new ArrayList<LatLng>();
+-                                    pts.add(gp.position);
+-                                    pts.add(gp.prevPosition);
++                                    pts.add(new LatLng(Double.parseDouble(gp.position.split(",")[0]), Double.parseDouble(gp.position.split(",")[1])));
++                                    pts.add(new LatLng(Double.parseDouble(gp.prevPosition.split(",")[0]), Double.parseDouble(gp.prevPosition.split(",")[1])));
+                                     gp.line.setPoints(pts);
+                                 } else {
+                                     Log.d("std", "Creating new link");
+                                     gp.line = mMap.addPolyline(new PolylineOptions()
+-                                            .add(gp.position, gp.prevPosition)
++                                            .add(new LatLng(Double.parseDouble(gp.position.split(",")[0]), Double.parseDouble(gp.position.split(",")[1])), new LatLng(Double.parseDouble(gp.prevPosition.split(",")[0]), Double.parseDouble(gp.prevPosition.split(",")[1])))
+                                             .width(3)
+                                             .color(Color.RED));
+                                 }
+@@ -199,9 +208,9 @@
+ 			for (SYGroup gp : groups) {
+ 				if (gp.groupNumber == Integer.parseInt(groupVals[0])) {
+ 					alreadyInList = true;
+-                    LatLng oldPos = gp.position;
+-					gp.position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
+-                    if (oldPos != gp.position)
++                    String oldPos = gp.position;
++					gp.position = groupVals[1];
++                    if (!oldPos.equals(gp.position))
+                         gp.prevPosition = oldPos;
+ 					gp.direction = groupVals[3];
+ 					gp.transportation = groupVals[4];
+@@ -223,6 +232,7 @@
+ 			e.printStackTrace();
+ 		}
+ 	}
++
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+         // Inflate the menu; this adds items to the action bar if it is present.
+@@ -236,7 +246,7 @@
+     }
+ 
+     public void showSettings() {
+-        Intent intent = new Intent(this, MainActivity.class);
++        Intent intent = new Intent(this, SettingsActivity.class);//TODO vll. wieder zu Main machen
+         startActivity(intent);
+     }
+ 
+@@ -264,6 +274,6 @@
+     }
+     protected void onSaveInstanceState(Bundle icicle) {
+         super.onSaveInstanceState(icicle);
+-        icicle.putSerializable("group_positions",(Serializable) groups);
++        //icicle.putSerializable("group_positions",(Serializable) groups);
+     }
+ }
+\ No newline at end of file
