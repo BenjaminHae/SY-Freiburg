@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements HttpResp {
     private Resources mResources;
     private Intent mIntentTracking;
     private SharedPreferences.OnSharedPreferenceChangeListener mSharedPreferenceChangeListener;
-    private Timer mTimer;
+    private static Timer mTimer;
     private String mLastAddress;
     private String mLastSentAddress;
     private Time mLastSentTime;
@@ -142,6 +142,7 @@ public class MainActivity extends Activity implements HttpResp {
                     MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
                     MainActivity.this.showSettings();
                 } else
+		    Toast.makeText(getApplicationContext(),"Sende Position", Toast.LENGTH_SHORT).show();
                     Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
             }
         });
@@ -165,8 +166,6 @@ public class MainActivity extends Activity implements HttpResp {
 
     public void setTracking() {
         if (mSettings.getBoolean("pref_auto_submit_location",false)) {
-            Toast.makeText(getApplicationContext(), "Verbinde", Toast.LENGTH_SHORT).show();
-            Log.d("std","SY: Start Tracking, Connecting");
             mLocationByPlay.connect();
             //weiter geht's in playConnected
         }

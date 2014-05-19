@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Interact extends Activity implements HttpResp, NumberPickerDialog.NumberPickerDialogListener{
@@ -31,6 +32,7 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
         TextView output = (TextView) findViewById(R.id.commentText);
         output.setText("");
         String Parameters = "AJAX="+state;
+        Toast.makeText(getApplicationContext(),"Lade Kommentare", Toast.LENGTH_SHORT).show();
         new Http("http://www.benjaminh.de/sy/ajax.php", resp)
                 .execute(Parameters);
     }
@@ -93,6 +95,7 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
                 String text = ((EditText) findViewById(R.id.editComment)).getText().toString();
                 if (!text.trim().equals("")) {
                     String group = mSettings.getString("pref_group_id", "11");
+                    Toast.makeText(getApplicationContext(),"Sende", Toast.LENGTH_SHORT).show();
                     Vars.SendLocation(Integer.parseInt(group), text, "", "", "", resp);
                 }
             }
