@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.ErrorDialogFragment;
@@ -68,8 +69,11 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
 
     public void connect()
     {
-        if (!mLocationClient.isConnected())
+        if (!mLocationClient.isConnected()){
+	    Toast.makeText(getApplicationContext(), "Verbinde", Toast.LENGTH_SHORT).show();
+            Log.d("std","SY: Start Tracking, Connecting");
             mLocationClient.connect();
+        }
     }
 
     public void disconnect()
