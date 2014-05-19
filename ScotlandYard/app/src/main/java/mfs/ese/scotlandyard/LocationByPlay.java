@@ -70,7 +70,6 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
     public void connect()
     {
         if (!mLocationClient.isConnected()){
-	    Toast.makeText(getApplicationContext(), "Verbinde", Toast.LENGTH_SHORT).show();
             Log.d("std","SY: Start Tracking, Connecting");
             mLocationClient.connect();
         }
