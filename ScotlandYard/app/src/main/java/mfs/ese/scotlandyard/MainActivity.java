@@ -142,6 +142,7 @@ public class MainActivity extends Activity implements HttpResp {
                     MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
                     MainActivity.this.showSettings();
                 } else
+		    Toast.makeText(getApplicationContext(),"Sende Position", Toast.LENGTH_SHORT).show();
                     Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
             }
         });

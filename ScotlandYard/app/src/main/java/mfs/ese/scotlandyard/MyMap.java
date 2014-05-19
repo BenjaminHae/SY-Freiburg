@@ -248,6 +248,7 @@ public class MyMap extends Activity implements HttpResp{
                 showInteract();
                 return true;
             case R.id.action_refresh:
+		Toast.makeText(getApplicationContext(),"Lade Positionen", Toast.LENGTH_SHORT).show();
                 // Get positions
                 new Http("http://www.benjaminh.de/sy/ajax.php", resp)
                         .execute("AJAX=hgroups");
