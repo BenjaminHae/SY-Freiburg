@@ -1,6 +1,7 @@
 package mfs.ese.scotlandyard;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,19 +40,19 @@ public class MainActivity extends Activity implements HttpResp {
     private static Timer mTimer;
     private static String mLastKnownAddress;
     private static String mLastSentAddress;
-    private static Time mLastSentTime;
-    private static Time mLastKnownTime;
+    private static Date mLastSentTime;
+    private static Date mLastKnownTime;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mResources = this.getResources();
         if (mLastSentTime==null)
-            mLastSentTime = new Time();
+            mLastSentTime = new Date();
         if (mLastSentAddress==null)
             mLastSentAddress = new String();
         if (mLastKnownTime==null)
-            mLastKnownTime = new Time();
+            mLastKnownTime = new Date();
         if (mLastKnownAddress==null)
             mLastKnownAddress = new String();
 
@@ -78,6 +79,7 @@ public class MainActivity extends Activity implements HttpResp {
             @Override
             public void onNewLocation(Location location) {
                 MainActivity.this.mLastKnownAddress = mLocationByPlay.getAddress(location, getApplicationContext());
+                MainActivity.this.mLastKnownTime = new Date();
                 MainActivity.this.showTrackingInfo();
             }
         });
@@ -114,15 +116,15 @@ public class MainActivity extends Activity implements HttpResp {
         {
             ((RelativeLayout) findViewById(R.id.viewMrX)).setVisibility(View.VISIBLE);
         } else {
-            ((RelativeLayout) findViewById(R.id.viewMrX)).setVisibility(View.INVISIBLE);
+            ((RelativeLayout) findViewById(R.id.viewMrX)).setVisibility(View.GONE);
         }
     }
     private void showTrackingInfo()
     {
         if ((mLastSentTime!= null) && (mLastSentAddress != null))
-            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText("letzte gesendete Position (" + new SimpleDateFormat("HH:mm:ss").format(mLastSentTime) + "): " + mLastSentAddress);
+            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText("letzte gesendete Position (" + new SimpleDateFormat("HH:mm:ss").format(mLastSentTime) + "):\n" + mLastSentAddress);
         if ((mLastKnownAddress!= null) && (mLastKnownTime != null))
-            ((TextView) findViewById(R.id.textViewLastKnownLocation)).setText("letzte erkannte Position (" + new SimpleDateFormat("HH:mm:ss").format(mLastKnownTime) + "): " + mLastKnownAddress);
+            ((TextView) findViewById(R.id.textViewLastKnownLocation)).setText("letzte erkannte Position (" + new SimpleDateFormat("HH:mm:ss").format(mLastKnownTime) + "):\n" + mLastKnownAddress);
     }
 
     private void populateOnClick() {
@@ -274,13 +276,11 @@ public class MainActivity extends Activity implements HttpResp {
                 Toast.makeText(getApplicationContext(), "Übertragung erfolgreich", Toast.LENGTH_SHORT).show();
                 //ToDO Variablen setzen
                 mLastSentAddress = mLocationByPlay.getAddress(mLocationByPlay.getLocation(), getApplicationContext());
-                mLastSentTime.setToNow();
+                mLastSentTime = new Date();
                 showTrackingInfo();
             } else {
                 Toast.makeText(getApplicationContext(), "Es gab ein Problem bei der Übertragung" + resp, Toast.LENGTH_LONG).show();
-                Time time = new Time();
-                time.setToNow();
-                ((TextView) findViewById(R.id.textViewError)).setText(time.toString() + " " + resp);
+                ((TextView) findViewById(R.id.textViewError)).setText(new SimpleDateFormat("HH:mm:ss").format(new Date()) + " " + resp);
             }
         }
     }
