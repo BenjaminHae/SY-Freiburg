@@ -3,4 +3,6 @@
     <item name="viewMrX" type="id" />
     <item name="textViewLastSentLocation" type="id" />
     <item name="textViewLastKnownLocation" type="id" />
+    <item name="rlTrackingInformation" type="id" />
+    <item name="tvErrors" type="id" />
 </resources>

@@ -1,5 +1,6 @@
 package mfs.ese.scotlandyard;
 
+import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,14 +37,24 @@ public class MainActivity extends Activity implements HttpResp {
     private Intent mIntentTracking;
     private SharedPreferences.OnSharedPreferenceChangeListener mSharedPreferenceChangeListener;
     private static Timer mTimer;
-    private String mLastAddress;
-    private String mLastSentAddress;
-    private Time mLastSentTime;
+    private static String mLastKnownAddress;
+    private static String mLastSentAddress;
+    private static Time mLastSentTime;
+    private static Time mLastKnownTime;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mResources = this.getResources();
+        if (mLastSentTime==null)
+            mLastSentTime = new Time();
+        if (mLastSentAddress==null)
+            mLastSentAddress = new String();
+        if (mLastKnownTime==null)
+            mLastKnownTime = new Time();
+        if (mLastKnownAddress==null)
+            mLastKnownAddress = new String();
+
         setContentView(R.layout.activity_main);
 
         Spinner spinner = (Spinner) findViewById(R.id.transportationSpinner);
@@ -60,6 +71,14 @@ public class MainActivity extends Activity implements HttpResp {
             @Override
             public void onConnect() {
                 MainActivity.this.playConnected();
+            }
+        });
+
+        mLocationByPlay.setNewLocationListener(new LocationByPlay.IAsyncFetchLocationListener() {
+            @Override
+            public void onNewLocation(Location location) {
+                MainActivity.this.mLastKnownAddress = mLocationByPlay.getAddress(location, getApplicationContext());
+                MainActivity.this.showTrackingInfo();
             }
         });
 
@@ -101,12 +120,19 @@ public class MainActivity extends Activity implements HttpResp {
     private void showTrackingInfo()
     {
         if ((mLastSentTime!= null) && (mLastSentAddress != null))
-            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText("letzte gesendete Position ("+mLastSentTime.toString()+"): "+mLastSentAddress);
-        //ToDo Infos übers Tracking anzeigen, z.b. Fehler
-        //TODO mLocationByPlay.getAddress(); lastPosition, lastUpdate
+            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText("letzte gesendete Position (" + new SimpleDateFormat("HH:mm:ss").format(mLastSentTime) + "): " + mLastSentAddress);
+        if ((mLastKnownAddress!= null) && (mLastKnownTime != null))
+            ((TextView) findViewById(R.id.textViewLastKnownLocation)).setText("letzte erkannte Position (" + new SimpleDateFormat("HH:mm:ss").format(mLastKnownTime) + "): " + mLastKnownAddress);
     }
 
     private void populateOnClick() {
+        final TextView textViewError = (TextView) findViewById(R.id.textViewError);//Fehleranzeige
+        textViewError.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                textViewError.setText("");
+            }
+        });
+
         final Button sendCatch = (Button) findViewById(R.id.sendCatch);//Gefangen von absenden
         sendCatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -134,16 +160,15 @@ public class MainActivity extends Activity implements HttpResp {
                 int gpid = -1;
                 try {
                     gpid = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
-                } catch (Exception e) {
-//Parse error
+                } catch (Exception e) {//Parse error
                     e.printStackTrace();
                 }
                 if (gpid < 0) {
                     MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
                     MainActivity.this.showSettings();
                 } else
-		    Toast.makeText(getApplicationContext(),"Sende Position", Toast.LENGTH_SHORT).show();
-                    Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
+                    Toast.makeText(getApplicationContext(), "Sende Position", Toast.LENGTH_SHORT).show();
+                Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
             }
         });
     }
@@ -198,9 +223,6 @@ public class MainActivity extends Activity implements HttpResp {
 
             //Get current position
             Location location = mLocationByPlay.getLocation();
-            //ToDO Variablen setzen
-            //mLastSentAddress = mLocationByPlay.getAddress(location, getApplicationContext());
-            //mLastSentTime.setToNow();
 
             if (location != null) {
                 //Send position
@@ -250,18 +272,15 @@ public class MainActivity extends Activity implements HttpResp {
         if (url.equals(mResources.getString(R.string.URL_ins))) {
             if (resp.equals("OK")) {
                 Toast.makeText(getApplicationContext(), "Übertragung erfolgreich", Toast.LENGTH_SHORT).show();
+                //ToDO Variablen setzen
+                mLastSentAddress = mLocationByPlay.getAddress(mLocationByPlay.getLocation(), getApplicationContext());
+                mLastSentTime.setToNow();
                 showTrackingInfo();
             } else {
-                Toast.makeText(getApplicationContext(), "Es gab ein Problem bei der Übertragung: " + resp, Toast.LENGTH_LONG).show();
-            }
-        } else if (url.equals(mResources.getString(R.string.URL_ajax))) {
-            if (param.contains("exX"))
-            {
-                //Frage nach welche MrX existieren
-            }
-            else if(param.contains("commentsBy"))
-            {
-                //Kommentare anzeigen
+                Toast.makeText(getApplicationContext(), "Es gab ein Problem bei der Übertragung" + resp, Toast.LENGTH_LONG).show();
+                Time time = new Time();
+                time.setToNow();
+                ((TextView) findViewById(R.id.textViewError)).setText(time.toString() + " " + resp);
             }
         }
     }

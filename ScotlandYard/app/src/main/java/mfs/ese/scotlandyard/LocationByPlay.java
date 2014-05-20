@@ -9,7 +9,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.ErrorDialogFragment;
@@ -32,8 +31,12 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
     public interface IAsyncFetchListener extends EventListener {
         void onConnect();
     }
+    public interface IAsyncFetchLocationListener extends EventListener {
+        void onNewLocation(Location location);
+    }
 
     IAsyncFetchListener fetchListener = null;
+    IAsyncFetchLocationListener fetchLocationListener = null;
 
     // A request to connect to Location Services
     private LocationRequest mLocationRequest;
@@ -65,6 +68,10 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
 
     public void setConnectListener(IAsyncFetchListener listener) {
         this.fetchListener = listener;
+    }
+
+    public void setNewLocationListener(IAsyncFetchLocationListener listener) {
+        this.fetchLocationListener = listener;
     }
 
     public void connect()
@@ -159,7 +166,8 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
     }
 
     public void onLocationChanged(Location location){
-        //TODO Event auslösen, oder auch nicht...
+        if (fetchLocationListener!= null)
+            this.fetchLocationListener.onNewLocation(location);
     }
 
     /*
