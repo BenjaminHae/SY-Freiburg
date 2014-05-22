@@ -60,15 +60,6 @@ public class MainActivity extends Activity implements HttpResp {
 
         setContentView(R.layout.activity_main);
 
-        Spinner spinner = (Spinner) findViewById(R.id.transportationSpinner);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.transportation_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-
         mLocationByPlay = new LocationByPlay(this);
         mLocationByPlay.setConnectListener(new LocationByPlay.IAsyncFetchListener() {
             @Override
@@ -148,7 +139,7 @@ public class MainActivity extends Activity implements HttpResp {
                     e.printStackTrace();
                 }
                 if (gpid < 0) {
-                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                    MsgBox(getString(R.string.error), "Bitte eine gültige Gruppennummer eingeben!");
                     MainActivity.this.showSettings();
                 } else
                     Vars.SendLocation(gpid, "Gefangen von " + ((EditText) findViewById(R.id.editCatch)).getText().toString(), "", "", mLocationByPlay.getLocation(), resp);
@@ -159,20 +150,19 @@ public class MainActivity extends Activity implements HttpResp {
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String comment = ((EditText) findViewById(R.id.commentText)).getText().toString();
-                String transportation = ((Spinner) findViewById(R.id.transportationSpinner)).getSelectedItem().toString();
                 String direction = ((EditText) findViewById(R.id.directionText)).getText().toString();
-                int gpid = -1;
+                int groupId = -1;
                 try {
-                    gpid = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
+                    groupId = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
                 } catch (Exception e) {//Parse error
                     e.printStackTrace();
                 }
-                if (gpid < 0) {
-                    MsgBox("Fehler", "Bitte eine gültige Gruppennummer eingeben!");
+                if (groupId < 0) {
+                    MsgBox(getString(R.string.error), "Bitte eine gültige Gruppennummer eingeben!");
                     MainActivity.this.showSettings();
                 } else
                     Toast.makeText(getApplicationContext(), "Sende Position", Toast.LENGTH_SHORT).show();
-                Vars.SendLocation(gpid, comment, transportation, direction, mLocationByPlay.getLocation(), resp);
+                Vars.SendLocation(groupId, comment, "", direction, mLocationByPlay.getLocation(), resp);
             }
         });
     }
