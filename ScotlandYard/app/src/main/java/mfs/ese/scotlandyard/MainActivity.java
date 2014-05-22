@@ -1,5 +1,7 @@
 package mfs.ese.scotlandyard;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -214,7 +216,7 @@ public class MainActivity extends Activity implements HttpResp {
         isTracking = true;
     }
     
-    class TrackingTask extends TimerTask {
+    class TrackingTask extends TimerTask {//Position regelmäßig senden
         HttpResp resp = null;
 
         public TrackingTask(HttpResp resp) {
@@ -231,7 +233,12 @@ public class MainActivity extends Activity implements HttpResp {
                 //Send position
                 Http con = new Http("http://www.benjaminh.de/sy/ins.php", resp);
                 con.setPost(true);
-                con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "address="+mLastSentAddress);
+                try {
+                    con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "address="+ URLEncoder.encode(mLastKnownAddress.toString(), "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude());
+                }
+                Log.d("std","SY: "+mLastKnownAddress);
             }
         }
     }
@@ -274,7 +281,7 @@ public class MainActivity extends Activity implements HttpResp {
 	public void response(String url, String param, String resp) {
         if (url.equals(mResources.getString(R.string.URL_ins))) {
             if (resp.equals("OK")) {
-                Toast.makeText(getApplicationContext(), "Übertragung erfolgreich", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Übertragung erfolgreich", Toast.LENGTH_SHORT).show();
                 //ToDO Variablen setzen
                 mLastSentAddress = mLocationByPlay.getAddress(mLocationByPlay.getLocation(), getApplicationContext());
                 mLastSentTime = new Date();
