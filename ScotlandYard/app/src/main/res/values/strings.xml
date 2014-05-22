@@ -105,10 +105,25 @@
     <string name="connection_error_sign_in_required">The user is not signed in</string>
     <string name="connection_error_unknown">An unknown error occurred</string>
     <string name="title_activity_interact">Interact</string>
-    <string name="hint_direction">z.B. nächstes Ziel</string>
+    <string name="main_mrX_direction_hint">z.B. nächstes Ziel</string>
     <string name="send">Senden</string>
     <string name="moreComments">+</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="error">Fehler</string>
+    <string name="main_mrX_sendInformationHint">Diese Informationen werden beim nächsten Übertragen der Position mit gesendet.</string>
+    <string name="main_mrX_direction">Richtung:</string>
+    <string name="main_mrX_comment">Kommentar:</string>
+    <string name="main_mrX_mrXonly">Folgendes ist nur für Mister X Gruppen:</string>
+    <string name="main_mrX_caughtText">Gefangen von Gruppe</string>
+    <string name="main_mrX_caughtSend">senden</string>
+    <string name="main_sendPosition">Position jetzt bekanntgeben</string>
+    <string name="main_group">Gruppe:</string>
+    <string name="main_location_lastSent">letzte gesendete Position:</string>
+    <string name="main_location_lastKnown">letzte erkannte Position:</string>
+    <string name="error_invalidGroupId">Bitte eine gültige Gruppennummer eingeben!</string>
+    <string name="comment_caughtBy">Gefangen von </string>
+    <string name="toast_sendingPosition">Sende Position</string>
+    <string name="toast_trackingEnd">Tracking beendet</string>
+    <string name="error_transmission">Es gab ein Problem bei der Übertragung</string>
 
 </resources>

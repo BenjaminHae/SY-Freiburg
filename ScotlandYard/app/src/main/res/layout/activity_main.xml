@@ -18,7 +18,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gruppe:"
+        android:text="@string/main_group"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -45,7 +45,7 @@
             android:id="@+id/submitPositionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Position jetzt bekanntgeben"
+            android:text="@string/main_sendPosition"
             android:layout_below="@+id/switchLocation"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -65,7 +65,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="senden"
+                android:text="@string/main_mrX_caughtSend"
                 android:id="@+id/sendCatch"
                 android:layout_alignBottom="@+id/editCatch"
                 android:layout_alignParentRight="true"
@@ -74,7 +74,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gefangen von Gruppe"
+                android:text="@string/main_mrX_caughtText"
                 android:id="@+id/tvCatch"
                 android:layout_below="@+id/tvMrXonly"
                 android:layout_alignParentLeft="true"
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
-                android:text="Folgendes ist nur für Mister X Gruppen:"
+                android:text="@string/main_mrX_mrXonly"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -116,7 +116,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kommentar:"
+                android:text="@string/main_mrX_comment"
                 android:layout_below="@+id/directionText"
                 android:layout_alignParentLeft="true" />
 
@@ -128,18 +128,29 @@
                 android:layout_below="@+id/textView4"
                 android:layout_alignParentLeft="true"
                 android:singleLine="true"
-                android:hint="@string/hint_direction"
+                android:hint="@string/main_mrX_direction_hint"
                 android:inputType="text"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
             <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Richtung:"
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_mrX_direction"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/sendCatch" />
+
+            <TextView
+                android:id="@+id/tvHintSendComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/main_mrX_sendInformationHint"
+                android:layout_below="@+id/commentText"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="right"/>
 
         </RelativeLayout>
 
@@ -155,7 +166,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="letzte erkannte Position:"
+                android:text="@string/main_location_lastKnown"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -163,7 +174,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="letzte gesendete Position:"
+                android:text="@string/main_location_lastSent"
                 android:layout_below="@id/textViewLastKnownLocation"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
