@@ -112,12 +112,11 @@ public class MainActivity extends Activity implements HttpResp {
             ((RelativeLayout) findViewById(R.id.viewMrX)).setVisibility(View.GONE);
         }
     }
-    private void showTrackingInfo()
-    {
-        if ((mLastSentTime!= null) && (mLastSentAddress != null))
-            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText("letzte gesendete Position (" + new SimpleDateFormat("HH:mm:ss").format(mLastSentTime) + "):\n" + mLastSentAddress);
-        if ((mLastKnownAddress!= null) && (mLastKnownTime != null))
-            ((TextView) findViewById(R.id.textViewLastKnownLocation)).setText("letzte erkannte Position (" + new SimpleDateFormat("HH:mm:ss").format(mLastKnownTime) + "):\n" + mLastKnownAddress);
+    private void showTrackingInfo() {
+        if ((mLastSentTime != null) && (mLastSentAddress != null))
+            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText(getString(R.string.main_location_lastSent) + " (" + new SimpleDateFormat("HH:mm:ss").format(mLastSentTime) + "):\n" + mLastSentAddress);
+        if ((mLastKnownAddress != null) && (mLastKnownTime != null))
+            ((TextView) findViewById(R.id.textViewLastKnownLocation)).setText(getString(R.string.main_location_lastKnown) + " (" + new SimpleDateFormat("HH:mm:ss").format(mLastKnownTime) + "):\n" + mLastKnownAddress);
     }
 
     private void populateOnClick() {
@@ -131,18 +130,18 @@ public class MainActivity extends Activity implements HttpResp {
         final Button sendCatch = (Button) findViewById(R.id.sendCatch);//Gefangen von absenden
         sendCatch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int gpid = -1;
+                int GroupId = -1;
                 try {
-                    gpid = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
+                    GroupId = Integer.parseInt(mSettings.getString("pref_group_id", "11"));
                 } catch (Exception e) {
                     //Parse error
                     e.printStackTrace();
                 }
-                if (gpid < 0) {
-                    MsgBox(getString(R.string.error), "Bitte eine gültige Gruppennummer eingeben!");
+                if (GroupId < 0) {
+                    MsgBox(getString(R.string.error), getString(R.string.error_invalidGroupId));
                     MainActivity.this.showSettings();
                 } else
-                    Vars.SendLocation(gpid, "Gefangen von " + ((EditText) findViewById(R.id.editCatch)).getText().toString(), "", "", mLocationByPlay.getLocation(), resp);
+                    Vars.SendLocation(GroupId, getString(R.string.comment_caughtBy) + ((EditText) findViewById(R.id.editCatch)).getText().toString(), "", "", mLocationByPlay.getLocation(), resp);
             }
         });
 
@@ -158,10 +157,10 @@ public class MainActivity extends Activity implements HttpResp {
                     e.printStackTrace();
                 }
                 if (groupId < 0) {
-                    MsgBox(getString(R.string.error), "Bitte eine gültige Gruppennummer eingeben!");
+                    MsgBox(getString(R.string.error), getString(R.string.error_invalidGroupId));
                     MainActivity.this.showSettings();
                 } else
-                    Toast.makeText(getApplicationContext(), "Sende Position", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.toast_sendingPosition), Toast.LENGTH_SHORT).show();
                 Vars.SendLocation(groupId, comment, "", direction, mLocationByPlay.getLocation(), resp);
             }
         });
@@ -218,17 +217,29 @@ public class MainActivity extends Activity implements HttpResp {
 
             //Get current position
             Location location = mLocationByPlay.getLocation();
+            String comment = null;
+            try {
+                comment = URLEncoder.encode(((EditText) findViewById(R.id.commentText)).getText().toString(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                comment = "";
+            }
+            String direction = null;
+            try {
+                direction = URLEncoder.encode(((EditText) findViewById(R.id.directionText)).getText().toString(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                direction = "";
+            }
 
             if (location != null) {
                 //Send position
                 Http con = new Http("http://www.benjaminh.de/sy/ins.php", resp);
                 con.setPost(true);
                 try {
-                    con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "address="+ URLEncoder.encode(mLastKnownAddress.toString(), "UTF-8"));
+                    con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "comment=" + comment, "direction=" + direction, "address=" + URLEncoder.encode(mLastKnownAddress.toString(), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
-                    con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude());
+                    con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude() "comment=" + comment, "direction=" + direction);
                 }
-                Log.d("std","SY: "+mLastKnownAddress);
+                Log.d("std", "SY: " + mLastKnownAddress);
             }
         }
     }
@@ -236,7 +247,7 @@ public class MainActivity extends Activity implements HttpResp {
     public void stopTracking() {
         if (mTimer != null) {
             Log.d("std","SY: End Tracking");
-            Toast.makeText(getApplicationContext(),"Tracking beendet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getString(R.string.toast_trackingEnd), Toast.LENGTH_SHORT).show();
             mTimer.cancel();
         }
         isTracking = false;
@@ -275,9 +286,11 @@ public class MainActivity extends Activity implements HttpResp {
                 //ToDO Variablen setzen
                 mLastSentAddress = mLocationByPlay.getAddress(mLocationByPlay.getLocation(), getApplicationContext());
                 mLastSentTime = new Date();
+                ((EditText) findViewById(R.id.commentText)).setText("");
+                ((EditText) findViewById(R.id.directionText)).setText("");
                 showTrackingInfo();
             } else {
-                Toast.makeText(getApplicationContext(), "Es gab ein Problem bei der Übertragung", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.error_transmission), Toast.LENGTH_LONG).show();
                 ((TextView) findViewById(R.id.textViewError)).append("\n"+new SimpleDateFormat("HH:mm:ss").format(new Date()) + " " + resp);
             }
         }

@@ -12,9 +12,10 @@ public class Vars {
         }
     }
 
-    public static void SendLocation(int gpid, String _comment, String _transportation, String _direction, String _location, HttpResp resp) {
+    public static void SendLocation(int _groupId, String _comment, String _transportation, String _direction, String _location, HttpResp resp) {
         //Set Parameters
-        String groupId = "group=" + String.valueOf(gpid);
+        //TODO URL_ENCODE!
+        String groupId = "group=" + String.valueOf(_groupId);
         String position = "position=" + _location;
         String transportation = "transportation=" + _transportation;
         String direction = "direction=" + _direction;
