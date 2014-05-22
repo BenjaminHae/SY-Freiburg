@@ -237,7 +237,7 @@ public class MainActivity extends Activity implements HttpResp {
                 try {
                     con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "comment=" + comment, "direction=" + direction, "address=" + URLEncoder.encode(mLastKnownAddress.toString(), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
-                    con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude() "comment=" + comment, "direction=" + direction);
+                    con.execute("group=" + mSettings.getString("pref_group_id", ""), "position=" + location.getLatitude() + "," + location.getLongitude(), "comment=" + comment, "direction=" + direction);
                 }
                 Log.d("std", "SY: " + mLastKnownAddress);
             }
