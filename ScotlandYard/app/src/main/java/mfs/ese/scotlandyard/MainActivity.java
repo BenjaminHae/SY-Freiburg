@@ -279,8 +279,8 @@ public class MainActivity extends Activity implements HttpResp {
                 mLastSentTime = new Date();
                 showTrackingInfo();
             } else {
-                Toast.makeText(getApplicationContext(), "Es gab ein Problem bei der Übertragung" + resp, Toast.LENGTH_LONG).show();
-                ((TextView) findViewById(R.id.textViewError)).setText(new SimpleDateFormat("HH:mm:ss").format(new Date()) + " " + resp);
+                Toast.makeText(getApplicationContext(), "Es gab ein Problem bei der Übertragung", Toast.LENGTH_LONG).show();
+                ((TextView) findViewById(R.id.textViewError)).append("\n"+new SimpleDateFormat("HH:mm:ss").format(new Date()) + " " + resp);
             }
         }
     }
