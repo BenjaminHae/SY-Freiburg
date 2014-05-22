@@ -203,7 +203,8 @@ public class MainActivity extends Activity implements HttpResp {
     public void playConnected() {
         mLocationByPlay.StartTracking();
         if (!isTracking) {
-            Toast.makeText(getApplicationContext(),"Verbunden, Tracking läuft", Toast.LENGTH_SHORT).show();
+            //TODO eventuell das Verbunden wieder anzeigen
+            //Toast.makeText(getApplicationContext(),"Verbunden, Tracking läuft", Toast.LENGTH_SHORT).show();
             Log.d("std", "SY: Connected, Tracking runs");
             if (mTimer != null)
                 mTimer.cancel();
