@@ -14,7 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_above="@+id/sendComment"
-        android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -51,9 +56,9 @@
         android:text="@string/send"
         android:id="@+id/sendComment"
         android:layout_alignTop="@+id/editComment"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignRight="@+id/scrollView"
+        android:layout_alignEnd="@+id/scrollView"
+        android:layout_alignBottom="@+id/editComment" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -62,9 +67,21 @@
         android:ems="10"
         android:id="@+id/editComment"
         android:hint="Kommentar"
+        android:layout_above="@+id/cbAddLocation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:id="@+id/cbAddLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/interact_sendLocationCB"
+        android:textSize="12sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/sendComment" />
+        android:layout_alignRight="@+id/sendComment"
+        android:layout_alignEnd="@+id/sendComment"
+        android:singleLine="false" />
 
 </RelativeLayout>

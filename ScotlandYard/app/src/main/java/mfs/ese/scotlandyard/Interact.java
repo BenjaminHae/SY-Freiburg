@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -95,8 +97,13 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
                 String text = ((EditText) findViewById(R.id.editComment)).getText().toString();
                 if (!text.trim().equals("")) {
                     String group = mSettings.getString("pref_group_id", "11");
-                    Toast.makeText(getApplicationContext(),"Sende", Toast.LENGTH_SHORT).show();
-                    Vars.SendLocation(Integer.parseInt(group), text, "", "", "", resp);
+                    Location location = null;
+                    if (((CheckBox) findViewById(R.id.cbAddLocation)).isChecked())
+                    {
+                        location = MainActivity.mLocationByPlay.getLocation();
+                    }
+                    Toast.makeText(getApplicationContext(),getString(R.string.sending), Toast.LENGTH_SHORT).show();
+                    Vars.SendLocation(Integer.parseInt(group), text, "", "", location, resp);
                 }
             }
         });

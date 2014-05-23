@@ -5,11 +5,13 @@ import android.location.Location;
 public class Vars {
     public static int MAP_UPDATING_INTERVAL = 10000; //neu laden der Karte
 
-    public static void SendLocation(int gpid, String _comment, String _transportation, String _direction, Location location, HttpResp resp) {
+    public static void SendLocation(int groupId, String _comment, String _transportation, String _direction, Location location, HttpResp resp) {
+        String position;
         if (location != null) {
-            String position = location.getLatitude() + "," + location.getLongitude();
-            SendLocation(gpid, _comment,_transportation,_direction,position, resp);
-        }
+            position = location.getLatitude() + "," + location.getLongitude();
+        } else
+            position = "";
+        SendLocation(groupId, _comment, _transportation, _direction, position, resp);
     }
 
     public static void SendLocation(int _groupId, String _comment, String _transportation, String _direction, String _location, HttpResp resp) {

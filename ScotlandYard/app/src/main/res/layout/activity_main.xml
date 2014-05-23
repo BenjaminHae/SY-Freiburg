@@ -65,7 +65,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/main_mrX_caughtSend"
+                android:text="@string/send"
                 android:id="@+id/sendCatch"
                 android:layout_alignBottom="@+id/editCatch"
                 android:layout_alignParentRight="true"
@@ -153,7 +153,16 @@
                 android:gravity="right"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="40px" />
+                android:paddingStart="40px" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ready"
+                android:id="@+id/cbInputReady"
+                android:layout_below="@id/tvHintSendComment"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 

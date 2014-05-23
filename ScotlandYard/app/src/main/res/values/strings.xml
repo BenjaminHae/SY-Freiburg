@@ -115,7 +115,6 @@
     <string name="main_mrX_comment">Kommentar:</string>
     <string name="main_mrX_mrXonly">Folgendes ist nur für Mister X Gruppen:</string>
     <string name="main_mrX_caughtText">Gefangen von Gruppe</string>
-    <string name="main_mrX_caughtSend">senden</string>
     <string name="main_sendPosition">Position jetzt bekanntgeben</string>
     <string name="main_group">Gruppe:</string>
     <string name="main_location_lastSent">letzte gesendete Position</string>
@@ -125,5 +124,8 @@
     <string name="toast_sendingPosition">Sende Position</string>
     <string name="toast_trackingEnd">Tracking beendet</string>
     <string name="error_transmission">Es gab ein Problem bei der Übertragung</string>
+    <string name="interact_sendLocationCB">Dem Kommentar die aktuelle Position beifügen</string>
+    <string name="sending">Sende</string>
+    <string name="ready">bereit</string>
 
 </resources>

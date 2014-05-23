@@ -1,33 +1,31 @@
 package mfs.ese.scotlandyard;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.location.Location;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import android.app.AlertDialog;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.location.Location;
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.preference.PreferenceManager;
-import android.text.format.Time;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity implements HttpResp {
 
@@ -44,6 +42,7 @@ public class MainActivity extends Activity implements HttpResp {
     private static String mLastSentAddress;
     private static Date mLastSentTime;
     private static Date mLastKnownTime;
+    private boolean mDidSendComment = false;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -217,17 +216,26 @@ public class MainActivity extends Activity implements HttpResp {
 
             //Get current position
             Location location = mLocationByPlay.getLocation();
-            String comment = null;
-            try {
-                comment = URLEncoder.encode(((EditText) findViewById(R.id.commentText)).getText().toString(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                comment = "";
-            }
-            String direction = null;
-            try {
-                direction = URLEncoder.encode(((EditText) findViewById(R.id.directionText)).getText().toString(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                direction = "";
+            String comment = "";
+            String direction = "";
+            if (((CheckBox) findViewById(R.id.cbInputReady)).isChecked()) {
+                try {
+                    comment = URLEncoder.encode(((EditText) findViewById(R.id.commentText)).getText().toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    comment = "";
+                }
+                try {
+                    direction = URLEncoder.encode(((EditText) findViewById(R.id.directionText)).getText().toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    direction = "";
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((CheckBox) findViewById(R.id.cbInputReady)).setChecked(false);
+                    }
+                });
+                mDidSendComment = true;
             }
 
             if (location != null) {
@@ -286,8 +294,11 @@ public class MainActivity extends Activity implements HttpResp {
                 //ToDO Variablen setzen
                 mLastSentAddress = mLocationByPlay.getAddress(mLocationByPlay.getLocation(), getApplicationContext());
                 mLastSentTime = new Date();
-                ((EditText) findViewById(R.id.commentText)).setText("");
-                ((EditText) findViewById(R.id.directionText)).setText("");
+                if (mDidSendComment) {
+                    ((EditText) findViewById(R.id.commentText)).setText("");
+                    ((EditText) findViewById(R.id.directionText)).setText("");
+                    mDidSendComment = false;
+                }
                 showTrackingInfo();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_transmission), Toast.LENGTH_LONG).show();
