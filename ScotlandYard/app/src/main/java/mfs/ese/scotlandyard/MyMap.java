@@ -4,8 +4,6 @@ package mfs.ese.scotlandyard;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 import com.google.android.gms.maps.GoogleMap;
@@ -35,8 +33,9 @@ public class MyMap extends Activity implements HttpResp{
 	
 	boolean isUpdating=false;
     private List<SYGroup> groups = new ArrayList<SYGroup>();
+    private Handler mHandler;
 
-	class SYGroup implements Serializable {
+    class SYGroup implements Serializable {
 		public int groupNumber;
 		public LatLng position;
         public LatLng prevPosition;
@@ -93,26 +92,24 @@ public class MyMap extends Activity implements HttpResp{
         
     }
     
-    Timer timer;
+    Runnable mRefreshMap;
 
     public void UpdateMap() {
-        timer = new Timer();
-        timer.schedule(new UpdateTask(), 0, Vars.MAP_UPDATING_INTERVAL);
+        mRefreshMap = new Runnable() {
+            @Override
+            public void run() {
+            // Get positions
+                new Http("http://www.benjaminh.de/sy/ajax.php", resp)
+                        .execute("AJAX=hgroups");
+
+                new Http("http://www.benjaminh.de/sy/ajax.php", resp)
+                        .execute("AJAX=xgroups");
+                mHandler.postDelayed(this, Vars.MAP_UPDATING_INTERVAL);
+            }
+        };
+        mHandler = new Handler();
+        mHandler.postDelayed(mRefreshMap, Vars.MAP_UPDATING_INTERVAL);
 	}
-
-    class UpdateTask extends TimerTask {
-        public void run() {
-        	Log.d("std", "Positionupdate");
-
-			// Get positions
-			new Http("http://www.benjaminh.de/sy/ajax.php", resp)
-					.execute("AJAX=hgroups");
-			
-			new Http("http://www.benjaminh.de/sy/ajax.php", resp)
-			.execute("AJAX=xgroups");
-            //TODO Refreshing oder so anzeigen
-        }
-    }
 
     private void DrawGroups()
     {
@@ -192,30 +189,30 @@ public class MyMap extends Activity implements HttpResp{
         }
     }
 	
-	public void updateGroup(String[] groupVals, boolean misterx) {
+	public void updateGroup(String[] groupValues, boolean misterX) {
 		try {
 			boolean alreadyInList = false;
 
 			for (SYGroup gp : groups) {
-				if (gp.groupNumber == Integer.parseInt(groupVals[0])) {
+				if (gp.groupNumber == Integer.parseInt(groupValues[0])) {
 					alreadyInList = true;
                     LatLng oldPos = gp.position;
-					gp.position = new LatLng(Double.parseDouble(groupVals[1].split(",")[0]),Double.parseDouble(groupVals[1].split(",")[1]));
+					gp.position = new LatLng(Double.parseDouble(groupValues[1].split(",")[0]),Double.parseDouble(groupValues[1].split(",")[1]));
                     if (!gp.position.equals(oldPos))
                         gp.prevPosition = oldPos;
-					gp.direction = groupVals[3];
-					gp.transportation = groupVals[4];
-					gp.comment = groupVals[5];
-					gp.timestamp = groupVals[6].substring(11,16); //Nur Uhrzeit
+					gp.direction = groupValues[3];
+					gp.transportation = groupValues[4];
+					gp.comment = groupValues[5];
+					gp.timestamp = groupValues[6].substring(11,16); //Nur Uhrzeit
 					
-					Log.d("std", "Group " + groupVals[0] + " was updated.");
+					Log.d("std", "Group " + groupValues[0] + " was updated.");
 				}
 				
 			}
 
 			if (!alreadyInList) {
-				groups.add(new SYGroup(groupVals, misterx));
-				Log.d("std", "Group " + groupVals[0] + " was added.");
+				groups.add(new SYGroup(groupValues, misterX));
+				Log.d("std", "Group " + groupValues[0] + " was added.");
 			}
 
 			
@@ -263,5 +260,12 @@ public class MyMap extends Activity implements HttpResp{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        mHandler.removeCallbacks(mRefreshMap);
     }
 }
