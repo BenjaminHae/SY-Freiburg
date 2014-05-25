@@ -99,16 +99,14 @@ public class MyMap extends Activity implements HttpResp{
             @Override
             public void run() {
             // Get positions
-                new Http("http://www.benjaminh.de/sy/ajax.php", resp)
+                new Http("http://www.benjaminh.de/sy/ajax.php", MyMap.this.resp)
                         .execute("AJAX=hgroups");
-
-                new Http("http://www.benjaminh.de/sy/ajax.php", resp)
+                new Http("http://www.benjaminh.de/sy/ajax.php", MyMap.this.resp)
                         .execute("AJAX=xgroups");
                 mHandler.postDelayed(this, Vars.MAP_UPDATING_INTERVAL);
             }
         };
         mHandler = new Handler();
-        mHandler.postDelayed(mRefreshMap, Vars.MAP_UPDATING_INTERVAL);
 	}
 
     private void DrawGroups()
@@ -262,6 +260,14 @@ public class MyMap extends Activity implements HttpResp{
         }
     }
 
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        mHandler.postDelayed(mRefreshMap, Vars.MAP_UPDATING_INTERVAL);
+
+    }
     @Override
     public void onPause()
     {
