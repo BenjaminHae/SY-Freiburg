@@ -34,7 +34,7 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
         TextView output = (TextView) findViewById(R.id.commentText);
         output.setText("");
         String Parameters = "AJAX="+state;
-        Toast.makeText(getApplicationContext(),"Lade Kommentare", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"Lade Kommentare", Toast.LENGTH_SHORT).show();
         new Http("http://www.benjaminh.de/sy/ajax.php", resp)
                 .execute(Parameters);
     }
