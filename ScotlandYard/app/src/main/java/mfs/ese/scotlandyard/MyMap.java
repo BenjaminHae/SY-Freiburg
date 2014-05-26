@@ -175,13 +175,13 @@ public class MyMap extends Activity implements HttpResp{
 	public void response(String url, String param, String resp) {
         if (param.equals("AJAX=hgroups") || param.equals("AJAX=xgroups"))
         {
-            boolean misterx=false;
-            if (param.equals("AJAX=xgroups")) misterx = true;
+            boolean misterX=false;
+            if (param.equals("AJAX=xgroups")) misterX = true;
 
             String[] sGroups = resp.split("<br/>");
             for (String group : sGroups) {
                 String[] groupVals = group.split(" \r\n");
-                updateGroup(groupVals, misterx);
+                updateGroup(groupVals, misterX);
             }
             DrawGroups();
         }
@@ -265,7 +265,7 @@ public class MyMap extends Activity implements HttpResp{
     public void onResume()
     {
         super.onResume();
-        mHandler.postDelayed(mRefreshMap, Vars.MAP_UPDATING_INTERVAL);
+        mHandler.postDelayed(mRefreshMap, 500);
 
     }
     @Override

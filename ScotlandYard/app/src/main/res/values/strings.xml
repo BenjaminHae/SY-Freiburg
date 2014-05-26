@@ -120,7 +120,7 @@
     <string name="main_location_lastSent">letzte gesendete Position</string>
     <string name="main_location_lastKnown">letzte erkannte Position</string>
     <string name="error_invalidGroupId">Bitte eine gültige Gruppennummer eingeben!</string>
-    <string name="comment_caughtBy">Gefangen von </string>
+    <string name="comment_caughtBy">Gefangen von\u0020</string>
     <string name="toast_sendingPosition">Sende Position</string>
     <string name="toast_trackingEnd">Tracking beendet</string>
     <string name="error_transmission">Es gab ein Problem bei der Übertragung</string>

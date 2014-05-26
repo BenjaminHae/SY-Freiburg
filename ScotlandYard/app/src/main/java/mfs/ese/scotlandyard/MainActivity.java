@@ -299,6 +299,10 @@ public class MainActivity extends Activity implements HttpResp {
                     ((EditText) findViewById(R.id.directionText)).setText("");
                     mDidSendComment = false;
                 }
+                if (param.contains(getString(R.string.comment_caughtBy)))
+                {
+                    ((EditText) findViewById(R.id.editCatch)).setText("");
+                }
                 showTrackingInfo();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_transmission), Toast.LENGTH_LONG).show();

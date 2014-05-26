@@ -5,7 +5,7 @@
         android:key="pref_group_id"
         android:summary="@string/pref_summary_group_id"
         android:title="@string/pref_title_group_id"
-        android:defaultValue="1" />
+        android:defaultValue="11" />
     <CheckBoxPreference
         android:key="pref_auto_submit_location"
         android:summary="@string/pref_summary_auto_submit"

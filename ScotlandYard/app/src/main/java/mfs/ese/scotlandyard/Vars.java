@@ -3,7 +3,7 @@ package mfs.ese.scotlandyard;
 import android.location.Location;
 
 public class Vars {
-    public static int MAP_UPDATING_INTERVAL = 10000; //neu laden der Karte
+    public static int MAP_UPDATING_INTERVAL = 15000; //neu laden der Karte
 
     public static void SendLocation(int groupId, String _comment, String _transportation, String _direction, Location location, HttpResp resp) {
         String position;
