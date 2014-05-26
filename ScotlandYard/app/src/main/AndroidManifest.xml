@@ -51,7 +51,6 @@
             <!-- android:screenOrientation="portrait" -->
         </activity>
 
-        <service android:name="mfs.ese.scotlandyard.Tracking" />
         <!-- <service android:name="mfs.ese.scotlandyard.PositionUpdater" /> -->
 
         <meta-data

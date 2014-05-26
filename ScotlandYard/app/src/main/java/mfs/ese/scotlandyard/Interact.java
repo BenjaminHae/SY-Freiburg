@@ -25,15 +25,13 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
     private Resources mResources;
     private SharedPreferences mSettings;
 
-    public void refresh(String state)
-    {
-        if (state.equals(""))
-        {
-            state="allComments&max=10";
+    public void refresh(String state) {
+        if (state.equals("")) {
+            state = "allComments&max=10";
         }
         TextView output = (TextView) findViewById(R.id.commentText);
         output.setText("");
-        String Parameters = "AJAX="+state;
+        String Parameters = "AJAX=" + state;
         //Toast.makeText(getApplicationContext(),"Lade Kommentare", Toast.LENGTH_SHORT).show();
         new Http("http://www.benjaminh.de/sy/ajax.php", resp)
                 .execute(Parameters);
@@ -69,7 +67,10 @@ public class Interact extends Activity implements HttpResp, NumberPickerDialog.N
     }
 
     public String generateCommentHTML(String no, String Time, String Comment, String Address) {
-        String result = "<b>Gruppe " + no + "</b> um <em>" + Time.split(" ")[1] + "</em>"+" in "+Address+"<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + Comment;
+        String result = "<b>Gruppe " + no + "</b> um <em>" + Time.split(" ")[1] + "</em>";
+        if (!Address.trim().equals(""))
+            result +=" in "+Address;
+        result += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + Comment;
         return result;
     }
 

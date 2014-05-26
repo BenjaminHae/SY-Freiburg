@@ -112,10 +112,11 @@ public class MainActivity extends Activity implements HttpResp {
         }
     }
     private void showTrackingInfo() {
+        SimpleDateFormat simpleDate = new SimpleDateFormat("HH:mm:ss");
         if ((mLastSentTime != null) && (mLastSentAddress != null))
-            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText(getString(R.string.main_location_lastSent) + " (" + new SimpleDateFormat("HH:mm:ss").format(mLastSentTime) + "):\n" + mLastSentAddress);
+            ((TextView) findViewById(R.id.textViewLastSentLocation)).setText(getString(R.string.main_location_lastSent) + " (" + simpleDate.format(mLastSentTime) + "):\n" + mLastSentAddress);
         if ((mLastKnownAddress != null) && (mLastKnownTime != null))
-            ((TextView) findViewById(R.id.textViewLastKnownLocation)).setText(getString(R.string.main_location_lastKnown) + " (" + new SimpleDateFormat("HH:mm:ss").format(mLastKnownTime) + "):\n" + mLastKnownAddress);
+            ((TextView) findViewById(R.id.textViewLastKnownLocation)).setText(getString(R.string.main_location_lastKnown) + " (" + simpleDate.format(mLastKnownTime) + "):\n" + mLastKnownAddress);
     }
 
     private void populateOnClick() {
