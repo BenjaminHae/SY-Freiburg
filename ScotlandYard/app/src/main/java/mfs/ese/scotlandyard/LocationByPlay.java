@@ -267,7 +267,7 @@ public class LocationByPlay implements LocationListener,GooglePlayServicesClient
          */
         public String getAddress(Location params, Context context) {
             Geocoder geocoder =
-                    new Geocoder(context, Locale.getDefault());//TODO context importieren
+                    new Geocoder(context, Locale.getDefault());
             // Get the current location from the input parameter list
             Location loc = params;
             // Create a list to contain the result address

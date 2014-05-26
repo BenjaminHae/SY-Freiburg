@@ -250,7 +250,7 @@ public class MyMap extends Activity implements HttpResp{
                         .execute("AJAX=hgroups");
 
                 new Http("http://www.benjaminh.de/sy/ajax.php", resp)
-                        .execute("AJAX=xgroups");//TODO Refreshing oder so anzeigen
+                        .execute("AJAX=xgroups");
                 return true;
             case R.id.action_settings:
                 showSettings();

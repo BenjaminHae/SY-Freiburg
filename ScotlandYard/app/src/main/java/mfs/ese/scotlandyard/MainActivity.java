@@ -204,12 +204,12 @@ public class MainActivity extends Activity implements HttpResp {
         isTracking = true;
     }
     
-    class TrackingTask extends TimerTask {//Position regelmäßig senden
+    private class TrackingTask extends TimerTask {//Position regelmäßig senden
         HttpResp resp = null;
 
         public TrackingTask(HttpResp resp) {
             this.resp = resp;
-        }
+        }//TODO das leakt die Aktivity!!
 
         public void run() {
             Log.d("std", "SY: Tracking");
@@ -291,7 +291,6 @@ public class MainActivity extends Activity implements HttpResp {
         if (url.equals(mResources.getString(R.string.URL_ins))) {
             if (resp.equals("OK")) {
                 //Toast.makeText(getApplicationContext(), "Übertragung erfolgreich", Toast.LENGTH_SHORT).show();
-                //ToDO Variablen setzen
                 mLastSentAddress = mLocationByPlay.getAddress(mLocationByPlay.getLocation(), getApplicationContext());
                 mLastSentTime = new Date();
                 if (mDidSendComment) {

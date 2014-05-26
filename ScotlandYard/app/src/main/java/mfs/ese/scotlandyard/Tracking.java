@@ -17,7 +17,6 @@ public class Tracking extends IntentService implements HttpResp {
 
     public Tracking() {
         super("TrackingService");
-        // TODO Auto-generated constructor stub
         mLocationByPlay = MainActivity.mLocationByPlay;
         mSettings = MainActivity.mSettings;
     }
@@ -68,7 +67,6 @@ public class Tracking extends IntentService implements HttpResp {
 
     @Override
     public void response(String action, String param, String resp) {
-        // TODO Auto-generated method stub
         Log.d("std", resp);
     }
 }
