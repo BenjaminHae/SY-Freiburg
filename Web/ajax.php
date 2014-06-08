@@ -91,4 +91,20 @@ if($_GET["AJAX"]=="exX")
 		}
 	}
 }
+if($_GET["AJAX"]=="caughtX")
+{
+	foreach($db->GetCaughtX($_GET["group"]) as $gp)
+	{
+		echo $gp[0];
+		echo "\r\n";
+	}
+}
+if($_GET["AJAX"]=="caughtBy")
+{
+	foreach($db->GetCaughtBy($_GET["group"]) as $gp)
+	{
+		echo $gp;
+		echo "\r\n";
+	}
+}
 ?>

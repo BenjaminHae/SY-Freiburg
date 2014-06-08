@@ -96,5 +96,27 @@ class syDB{
 		}
 		return $res;
 	}
+	public function GetCaughtX($groupBy)
+	{
+		settype($groupBy, 'integer');
+		$sql = "SELECT DISTINCT scotland_yard.group_id, scotland_yard.timestamp FROM scotland_yard WHERE scotland_yard.comment='Gefangen von ".$groupBy."' ORDER BY scotland_yard.group_id;";
+		$query = mysql_query($sql, $this->connection);
+		while($r=mysql_fetch_array($query))
+		{
+			$res[]=$r["group_id"];
+		}
+		return $res;
+	}
+	public function GetCaughtBy($xGroup)
+	{
+		settype($xGroup, 'integer');
+		$sql = "SELECT scotland_yard.comment, scotland_yard.timestamp FROM scotland_yard WHERE scotland_yard.group_id = ".$xGroup." AND scotland_yard.comment LIKE 'Gefangen von %' GROUP BY scotland_yard.comment ORDER BY scotland_yard.timestamp;";
+		$query = mysql_query($sql, $this->connection);
+		while($r=mysql_fetch_array($query))
+		{
+			$res[]=$r["comment"];
+		}
+		return $res;
+	}
 }
 ?>
