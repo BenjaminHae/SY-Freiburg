@@ -261,3 +261,39 @@ function ShowCommentsBy()
 	gp = document.getElementById("groupComm").value;
 	GetAJAX("commentsBy&group="+gp,DisplayComments);
 }
+function ShowStatistics()
+{
+	comments = document.getElementById("comments");
+	comments.innerHTML = "";
+	gp = document.getElementById("groupComm").value;
+	if (parseInt(gp)>10)
+		GetAJAX("caughtX&group="+gp,DisplayStatisticC);
+	else
+		GetAJAX("caughtBy&group="+gp,DisplayStatisticX);
+}
+function DisplayStatisticC(str)
+{
+	comments = document.getElementById("comments");
+	comments.innerHTML = "hat die Gruppen ";
+	var mrX = str.split('\r\n');
+	for (var i=0; i<mrX.length; i++)
+	{
+		if (mrX[i]!="")
+		{
+			comments.innerHTML += mrX[i]+", ";
+		}
+	}
+	comments.innerHTML+=" gefangen";
+}
+function DisplayStatisticX(str)
+{
+	comments = document.getElementById("comments");
+	var mrX = str.split('\r\n');
+	for (var i=0; i<mrX.length; i++)
+	{
+		if (mrX[i]!="")
+		{
+			comments.innerHTML += mrX[i]+"<br/>";
+		}
+	}
+}

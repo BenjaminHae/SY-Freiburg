@@ -44,6 +44,7 @@ Kommentar <input type="text" name="comment" id="comment"><br/>
 <input type="button" value="alle Kommentare" onclick="ShowAllComments();"/>
 <input type="button" value="nur neueste" onclick="ShowLastComments();"/>
 <input type="button" value="alle von" onclick="ShowCommentsBy();"/> <input type="text" width="3" id="groupComm" class="gpinput"/>
+<input type="button" value="Statistik" onclick="ShowStatistics();"/>
 <div id="comments">
 </div>
 </div>
